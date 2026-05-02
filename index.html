@@ -1,0 +1,2264 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR" data-tema="chumbo" data-modo="claro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEQLIST by FNW</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+[data-tema="chumbo"][data-modo="claro"]     {--bg:#E1E8E8;--bg2:#D0DADA;--surface:#EEF3F3;--accent:#343B3B;--accent2:#4A5555;--accent3:#5A7A72;--texto:#343B3B;--texto-s:#5A6666;--linha:#B8C8C8;--topo-bg:#EEF3F3;--topo-shadow:rgba(52,59,59,0.08);}
+[data-tema="chumbo"][data-modo="escuro"]    {--bg:#343B3B;--bg2:#2A3232;--surface:#3E4848;--accent:#E1E8E8;--accent2:#C8D4D4;--accent3:#7AADA5;--texto:#E1E8E8;--texto-s:#A0B0B0;--linha:#4A5858;--topo-bg:#3E4848;--topo-shadow:rgba(0,0,0,0.25);}
+[data-tema="terracota"][data-modo="claro"]  {--bg:#FAF7F2;--bg2:#F0E8DC;--surface:#fff;--accent:#C4714A;--accent2:#E8956D;--accent3:#4A7B6F;--texto:#2C2420;--texto-s:#7A6A62;--linha:#E0D5C8;--topo-bg:#fff;--topo-shadow:rgba(44,36,32,0.07);}
+[data-tema="terracota"][data-modo="escuro"] {--bg:#1A1210;--bg2:#2A1E18;--surface:#251810;--accent:#E8956D;--accent2:#C4714A;--accent3:#6BA898;--texto:#F5EDE6;--texto-s:#B09080;--linha:#3D2A22;--topo-bg:#1E1410;--topo-shadow:rgba(0,0,0,0.3);}
+[data-tema="verde"][data-modo="claro"]      {--bg:#F4F7F4;--bg2:#E4EEE6;--surface:#fff;--accent:#3D7A5A;--accent2:#5FA880;--accent3:#7A6A3D;--texto:#1E2C22;--texto-s:#5A7060;--linha:#C8DDD0;--topo-bg:#fff;--topo-shadow:rgba(30,44,34,0.07);}
+[data-tema="verde"][data-modo="escuro"]     {--bg:#0E1A12;--bg2:#162A1C;--surface:#122018;--accent:#5FA880;--accent2:#3D7A5A;--accent3:#C4A84A;--texto:#E6F2EA;--texto-s:#7AAA88;--linha:#1E3828;--topo-bg:#0E1A12;--topo-shadow:rgba(0,0,0,0.3);}
+[data-tema="indigo"][data-modo="claro"]     {--bg:#F5F4FA;--bg2:#EAE8F5;--surface:#fff;--accent:#5048A8;--accent2:#7B72C8;--accent3:#A84850;--texto:#1E1C30;--texto-s:#6860A0;--linha:#D0CCE8;--topo-bg:#fff;--topo-shadow:rgba(30,28,48,0.07);}
+[data-tema="indigo"][data-modo="escuro"]    {--bg:#0E0C1E;--bg2:#181630;--surface:#141228;--accent:#7B72C8;--accent2:#5048A8;--accent3:#C87880;--texto:#EAE8FF;--texto-s:#8880C0;--linha:#28245A;--topo-bg:#0E0C1E;--topo-shadow:rgba(0,0,0,0.3);}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{transition:background .3s;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--texto);min-height:100vh;transition:background .3s,color .3s;}
+
+/* ── ACESSO ── */
+#tela-acesso{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:1.5rem;}
+.acesso-card{background:var(--surface);border:1px solid var(--linha);border-radius:24px;padding:2.5rem 2rem;width:100%;max-width:390px;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,0.08);}
+.acesso-logo{font-family:'DM Serif Display',serif;font-size:2rem;color:var(--accent);letter-spacing:.05em;}
+.acesso-logo{margin-bottom:.4rem;}
+.acesso-nome{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--accent);letter-spacing:.12em;margin-bottom:.2rem;}
+.acesso-sub{font-size:.7rem;color:var(--texto-s);letter-spacing:.06em;text-transform:uppercase;margin-bottom:2rem;}
+.acesso-label{font-size:.72rem;font-weight:600;color:var(--texto-s);text-transform:uppercase;letter-spacing:.05em;text-align:left;margin-bottom:.4rem;display:block;}
+.acesso-input{width:100%;padding:.75rem 1rem;border-radius:12px;border:1.5px solid var(--linha);background:var(--bg2);color:var(--texto);font-family:'DM Sans',sans-serif;font-size:.95rem;transition:border-color .2s;margin-bottom:1rem;}
+.acesso-input:focus{outline:none;border-color:var(--accent2);}
+.btn-entrar{width:100%;padding:.75rem;border:none;border-radius:12px;background:var(--accent);color:#fff;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s;}
+.btn-entrar:hover{background:var(--accent2);transform:translateY(-1px);}
+.acesso-codigo-erro{font-size:.75rem;color:#C0392B;text-align:center;margin-top:-.5rem;margin-bottom:.5rem;}
+.acesso-import-wrap{margin-top:.8rem;}
+.acesso-divisor{display:flex;align-items:center;gap:.6rem;margin:.6rem 0;color:var(--texto-s);font-size:.7rem;}
+.acesso-divisor::before,.acesso-divisor::after{content:'';flex:1;height:1px;background:var(--linha);}
+.btn-importar-acesso{display:block;width:100%;padding:.65rem;border-radius:12px;border:1.5px dashed var(--linha);background:transparent;color:var(--texto-s);font-family:'DM Sans',sans-serif;font-size:.84rem;cursor:pointer;transition:all .2s;text-align:center;margin-bottom:.4rem;}
+.btn-importar-acesso:hover{border-color:var(--accent2);color:var(--accent);}
+.acesso-import-hint{font-size:.68rem;color:var(--texto-s);text-align:center;opacity:.7;}
+.acesso-import-ok{font-size:.78rem;color:var(--accent3);text-align:center;margin-top:.4rem;font-weight:600;padding:.4rem .6rem;background:color-mix(in srgb,var(--accent3) 10%,var(--bg));border-radius:8px;}
+.acesso-admin-toggle{margin-top:1.6rem;font-size:.68rem;color:var(--texto-s);cursor:pointer;opacity:.45;transition:opacity .2s;text-decoration:underline;text-underline-offset:3px;}
+.acesso-admin-toggle:hover{opacity:1;}
+.acesso-admin-box{margin-top:.8rem;display:none;}
+.acesso-admin-box.visivel{display:block;}
+.acesso-admin-hint{font-size:.7rem;color:var(--texto-s);margin-bottom:.4rem;text-align:left;}align-items:center;justify-content:center;gap:.5rem;margin-top:1.8rem;}
+.tema-acesso{display:flex;height:20px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:all .2s;}
+.btn-ta:hover{transform:scale(1.15);}
+.btn-ta.ativo{border-color:var(--texto);box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--texto);}
+.btn-ta[data-t="chumbo"]{background:linear-gradient(135deg,#343B3B,#E1E8E8);}
+.btn-ta[data-t="terracota"]{background:linear-gradient(135deg,#C4714A,#4A7B6F);}
+.btn-ta[data-t="verde"]{background:linear-gradient(135deg,#3D7A5A,#7A6A3D);}
+.btn-ta[data-t="indigo"]{background:linear-gradient(135deg,#5048A8,#A84850);}
+.divt{width:1px;height:14px;background:var(--linha);}
+.btn-ma{padding:.2rem .5rem;border-radius:8px;border:1.5px solid var(--linha);background:var(--bg2);color:var(--texto-s);font-size:.68rem;cursor:pointer;transition:all .2s;}
+.btn-ma.ativo{background:var(--accent);color:#fff;border-color:var(--accent);}
+
+/* ── TOPO ── */
+.topo{position:sticky;top:0;z-index:100;background:var(--topo-bg);border-bottom:1px solid var(--linha);box-shadow:0 2px 16px var(--topo-shadow);padding:.65rem 1.4rem;display:flex;align-items:center;justify-content:space-between;transition:background .3s;}
+.topo-esq{display:flex;align-items:center;gap:.7rem;}
+.topo-logo{font-family:'DM Serif Display',serif;font-size:.95rem;color:var(--accent);}
+.topo-seqlist{font-family:'DM Serif Display',serif;font-size:.82rem;color:var(--texto-s);letter-spacing:.1em;}
+.topo-div{width:1px;height:20px;background:var(--linha);}
+.topo-cliente{font-size:.82rem;color:var(--texto-s);}
+.topo-cliente strong{color:var(--texto);}
+.topo-dir{display:flex;align-items:center;gap:.38rem;}
+.btn-tema{width:20px;height:20px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:all .2s;}
+.btn-tema:hover{transform:scale(1.15);}
+.btn-tema.ativo{border-color:var(--texto);box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--texto);}
+.btn-tema[data-t="chumbo"]{background:linear-gradient(135deg,#343B3B,#E1E8E8);}
+.btn-tema[data-t="terracota"]{background:linear-gradient(135deg,#C4714A,#4A7B6F);}
+.btn-tema[data-t="verde"]{background:linear-gradient(135deg,#3D7A5A,#7A6A3D);}
+.btn-tema[data-t="indigo"]{background:linear-gradient(135deg,#5048A8,#A84850);}
+.divv{width:1px;height:14px;background:var(--linha);margin:0 .1rem;}
+.btn-modo{padding:.2rem .48rem;border-radius:8px;border:1.5px solid var(--linha);background:var(--bg2);color:var(--texto-s);font-size:.68rem;cursor:pointer;transition:all .2s;}
+.btn-modo.ativo{background:var(--accent);color:#fff;border-color:var(--accent);}
+.btn-sair{padding:.22rem .6rem;border-radius:8px;border:1px solid var(--linha);background:transparent;color:var(--texto-s);font-size:.68rem;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.btn-sair:hover{border-color:var(--accent2);color:var(--accent);}
+
+/* GROQ no topo */
+.btn-groq{width:26px;height:26px;border-radius:50%;border:1px solid var(--linha);background:var(--bg2);color:var(--texto-s);font-size:.78rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;}
+.btn-groq:hover{border-color:var(--accent2);color:var(--accent);}
+.btn-groq.ok{border-color:var(--accent3);color:var(--accent3);}
+.groq-dropdown{position:absolute;top:calc(100% + 6px);right:0;background:var(--surface);border:1px solid var(--linha);border-radius:10px;padding:.6rem .8rem;box-shadow:0 6px 20px rgba(0,0,0,0.12);display:none;min-width:260px;z-index:200;}
+.groq-dropdown.visivel{display:block;}
+.groq-dropdown label{font-size:.65rem;font-weight:600;color:var(--texto-s);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:.3rem;}
+.groq-dropdown input{width:100%;padding:.38rem .65rem;border-radius:8px;border:1px solid var(--linha);background:var(--bg2);color:var(--texto);font-family:'DM Sans',sans-serif;font-size:.76rem;}
+.groq-dropdown input:focus{outline:none;border-color:var(--accent2);}
+.groq-st{font-size:.65rem;margin-top:.3rem;display:block;}
+.groq-st.ok{color:var(--accent3);} .groq-st.err{color:#E05050;}
+
+/* ── STICKY FERRAMENTAS + TIMELINE no processo ── */
+.proc-sticky{position:sticky;top:49px;z-index:90;background:var(--topo-bg);border-bottom:1px solid var(--linha);padding:.55rem 1.4rem .3rem;margin:0 -1.4rem;transition:background .3s;box-shadow:0 2px 8px rgba(0,0,0,0.04);}
+.ferramentas{display:flex;gap:.38rem;flex-wrap:wrap;margin-bottom:.45rem;}
+.ferr-btn{display:inline-flex;align-items:center;gap:.28rem;padding:.3rem .68rem;border-radius:13px;font-size:.68rem;font-weight:600;border:1.5px solid transparent;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.ferr-btn:hover{transform:translateY(-1px);box-shadow:0 3px 9px rgba(0,0,0,0.1);}
+.ferr-btn .dot{width:5px;height:5px;border-radius:50%;}
+.ferr-btn.doc{background:#FFF4E8;color:#C47A2E;border-color:#F0D9B8;} .ferr-btn.doc .dot{background:#C47A2E;}
+.ferr-btn.deep{background:#E8F4FD;color:#2E7CB7;border-color:#C0DFF5;} .ferr-btn.deep .dot{background:#2E7CB7;}
+.ferr-btn.gem{background:#F0F4FF;color:#4A5EC9;border-color:#C8D3F5;} .ferr-btn.gem .dot{background:#4A5EC9;}
+.ferr-btn.note{background:#EDF7F0;color:#2E7A50;border-color:#C0E5CB;} .ferr-btn.note .dot{background:#2E7A50;}
+[data-modo="escuro"] .ferr-btn.doc{background:#2A1E0E;border-color:#3D2A0A;}
+[data-modo="escuro"] .ferr-btn.deep{background:#0E1E2A;border-color:#0A2A3D;}
+[data-modo="escuro"] .ferr-btn.gem{background:#0E1022;border-color:#1A1C3D;}
+[data-modo="escuro"] .ferr-btn.note{background:#0E2018;border-color:#0A3020;}
+.tl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;padding:.3rem 0 .45rem;}
+.tl{display:flex;align-items:flex-start;gap:0;min-width:max-content;}
+
+/* ── ADMIN ── */
+#tela-admin{display:none;}
+.admin-wrap{max-width:840px;margin:0 auto;padding:2rem 1.4rem 5rem;}
+.admin-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.6rem;}
+.admin-titulo{font-family:'DM Serif Display',serif;font-size:1.25rem;color:var(--texto);}
+.admin-titulo span{color:var(--accent);}
+.btn-add-c{display:inline-flex;align-items:center;gap:.4rem;padding:.48rem 1rem;background:var(--accent);color:#fff;border:none;border-radius:14px;font-family:'DM Sans',sans-serif;font-size:.76rem;font-weight:600;cursor:pointer;transition:all .2s;}
+.btn-add-c:hover{background:var(--accent2);}
+.clientes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.9rem;margin-bottom:2rem;}
+.cliente-card{background:var(--surface);border:1px solid var(--linha);border-radius:14px;padding:1.2rem;cursor:pointer;transition:all .2s;position:relative;}
+.cliente-card:hover{border-color:var(--accent2);box-shadow:0 4px 16px rgba(0,0,0,0.07);transform:translateY(-2px);}
+.cliente-av{width:38px;height:38px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:1.05rem;margin-bottom:.7rem;}
+.cliente-nome{font-family:'DM Serif Display',serif;font-size:.96rem;color:var(--texto);margin-bottom:.2rem;}
+.cliente-info{font-size:.72rem;color:var(--texto-s);}
+.cliente-acoes{position:absolute;top:.7rem;right:.7rem;display:flex;gap:.3rem;opacity:0;transition:opacity .2s;}
+.cliente-card:hover .cliente-acoes{opacity:1;}
+.btn-ca{width:24px;height:24px;border-radius:50%;border:1px solid var(--linha);background:var(--surface);color:var(--texto-s);font-size:.66rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;}
+.btn-ca.del:hover{background:#FDECEA;color:#C0392B;border-color:#C0392B;}
+.admin-nota{display:flex;align-items:flex-start;gap:.75rem;background:color-mix(in srgb,var(--accent2) 8%,var(--bg));border:1px solid color-mix(in srgb,var(--accent2) 30%,var(--linha));border-radius:12px;padding:.9rem 1rem;margin-bottom:1.4rem;}
+.admin-nota-icone{font-size:1.1rem;flex-shrink:0;margin-top:.05rem;}
+.admin-nota-texto{flex:1;font-size:.78rem;color:var(--texto-s);line-height:1.65;}
+.admin-nota-texto strong{color:var(--texto);}
+.admin-nota-texto em{color:var(--accent2);font-style:normal;font-weight:600;}
+.admin-nota-fechar{width:22px;height:22px;border-radius:50%;border:1px solid var(--linha);background:transparent;color:var(--texto-s);font-size:.62rem;cursor:pointer;flex-shrink:0;transition:all .2s;display:flex;align-items:center;justify-content:center;}
+.admin-nota-fechar:hover{background:var(--bg2);color:var(--texto);}
+.admin-bib-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.7rem;padding-bottom:.35rem;border-bottom:1px solid var(--linha);}
+.admin-bib-titulo{font-family:'DM Serif Display',serif;font-size:.96rem;color:var(--texto);}
+.btn-add-bib{display:inline-flex;align-items:center;gap:.3rem;padding:.35rem .85rem;background:var(--bg2);color:var(--texto-s);border:1.5px solid var(--linha);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:.74rem;font-weight:600;cursor:pointer;transition:all .2s;}
+.btn-add-bib:hover{border-color:var(--accent2);color:var(--accent);}
+.bib-item{background:var(--surface);border:1px solid var(--linha);border-radius:10px;padding:.75rem .9rem;display:flex;align-items:center;gap:.75rem;margin-bottom:.45rem;transition:all .2s;}
+.bib-item:hover{border-color:var(--accent2);box-shadow:0 2px 10px rgba(0,0,0,0.06);}
+.bib-info{flex:1;}
+.bib-nome{font-size:.84rem;font-weight:600;color:var(--texto);}
+.bib-desc{font-size:.7rem;color:var(--texto-s);}
+.bib-badge{font-size:.63rem;color:var(--texto-s);background:var(--bg2);padding:2px 7px;border-radius:7px;white-space:nowrap;}
+.bib-acoes{display:flex;gap:.3rem;}
+.btn-bib-acao{width:26px;height:26px;border-radius:50%;border:1px solid var(--linha);background:var(--bg2);color:var(--texto-s);font-size:.68rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;}
+.btn-bib-acao:hover{background:var(--surface);color:var(--texto);}
+.btn-bib-acao.del:hover{background:#FDECEA;color:#C0392B;border-color:#C0392B;}
+.bib-vazio{font-size:.82rem;color:var(--texto-s);padding:.8rem 0;}
+
+/* ── MODAL CLIENTE ── */
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.28);z-index:300;align-items:center;justify-content:center;backdrop-filter:blur(2px);}
+.modal-ov.visivel{display:flex;}
+.modal-box{background:var(--surface);border:1px solid var(--linha);border-radius:18px;padding:1.8rem;width:100%;max-width:420px;box-shadow:0 12px 48px rgba(0,0,0,0.14);}
+.modal-titulo{font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--texto);margin-bottom:1rem;}
+.modal-label{font-size:.7rem;font-weight:600;color:var(--texto-s);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:.32rem;}
+.modal-input{width:100%;padding:.58rem .85rem;border-radius:10px;border:1.5px solid var(--linha);background:var(--bg2);color:var(--texto);font-family:'DM Sans',sans-serif;font-size:.84rem;margin-bottom:.85rem;transition:border-color .2s;}
+.modal-input:focus{outline:none;border-color:var(--accent2);}
+.modal-proc-lista{display:flex;flex-direction:column;gap:.35rem;margin-bottom:.9rem;max-height:180px;overflow-y:auto;}
+.modal-proc-item{display:flex;align-items:center;gap:.55rem;padding:.45rem .65rem;border-radius:8px;border:1px solid var(--linha);background:var(--bg2);font-size:.78rem;cursor:pointer;transition:all .2s;}
+.modal-proc-item.sel{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,var(--bg));}
+.mpi-check{width:15px;height:15px;border-radius:4px;border:1.5px solid var(--linha);display:flex;align-items:center;justify-content:center;font-size:.58rem;transition:all .2s;flex-shrink:0;}
+.modal-proc-item.sel .mpi-check{background:var(--accent);border-color:var(--accent);color:#fff;}
+.modal-acoes{display:flex;gap:.55rem;}
+.btn-m{flex:1;padding:.58rem;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;}
+.btn-m.ok{background:var(--accent);color:#fff;border:none;} .btn-m.ok:hover{background:var(--accent2);}
+.btn-m.no{background:transparent;color:var(--texto-s);border:1px solid var(--linha);} .btn-m.no:hover{border-color:var(--accent2);color:var(--accent);}
+
+/* ── HUB CLIENTE ── */
+#tela-hub{display:none;}
+.hub-wrap{max-width:760px;margin:0 auto;padding:2rem 1.4rem 5rem;}
+.hub-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.7rem;}
+.hub-saudacao{font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--texto);}
+.hub-saudacao span{color:var(--accent);}
+.hub-sub{font-size:.76rem;color:var(--texto-s);margin-top:.22rem;}
+.btn-nova{display:inline-flex;align-items:center;gap:.38rem;padding:.48rem 1rem;background:var(--accent);color:#fff;border:none;border-radius:14px;font-family:'DM Sans',sans-serif;font-size:.76rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.btn-nova:hover{background:var(--accent2);transform:translateY(-1px);}
+.processos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:.9rem;}
+.processo-card{background:var(--surface);border:1px solid var(--linha);border-radius:14px;padding:1.25rem;cursor:pointer;transition:all .2s;position:relative;}
+.processo-card:hover{border-color:var(--accent2);box-shadow:0 5px 20px rgba(0,0,0,0.08);transform:translateY(-2px);}
+.pc-icon{font-size:1.4rem;margin-bottom:.55rem;}
+.pc-nome{font-family:'DM Serif Display',serif;font-size:.98rem;color:var(--texto);margin-bottom:.28rem;}
+.pc-desc{font-size:.78rem;color:var(--texto-s);line-height:1.6;}
+.pc-meta{display:flex;align-items:center;gap:.45rem;margin-top:.85rem;}
+.pc-badge{background:var(--bg2);padding:2px 7px;border-radius:7px;font-size:.63rem;color:var(--texto-s);}
+.pc-acoes{position:absolute;top:.85rem;right:.85rem;display:flex;gap:.28rem;opacity:0;transition:opacity .2s;}
+.processo-card:hover .pc-acoes{opacity:1;}
+.btn-pca{width:24px;height:24px;border-radius:50%;border:1px solid var(--linha);background:var(--surface);color:var(--texto-s);font-size:.66rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;}
+.btn-pca.del:hover{background:#FDECEA;color:#C0392B;border-color:#C0392B;}
+.hub-vazio{text-align:center;padding:3.5rem 2rem;color:var(--texto-s);}
+.hub-vazio-icon{font-size:2.4rem;margin-bottom:.75rem;}
+.hub-vazio p{font-size:.83rem;line-height:1.7;}
+
+/* ── TELA NOVA ── */
+#tela-nova{display:none;}
+.nova-wrap{max-width:600px;margin:0 auto;padding:2rem 1.4rem 5rem;}
+.nova-header{display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem;}
+.btn-voltar{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--linha);background:var(--surface);color:var(--texto-s);font-size:.85rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.btn-voltar:hover{border-color:var(--accent2);color:var(--accent);}
+.nova-titulo{font-family:'DM Serif Display',serif;font-size:1.15rem;color:var(--texto);}
+.modo-tabs{display:flex;gap:.45rem;margin-bottom:1.25rem;}
+.modo-tab{flex:1;padding:.52rem .9rem;border-radius:9px;border:1.5px solid var(--linha);background:var(--surface);color:var(--texto-s);font-family:'DM Sans',sans-serif;font-size:.76rem;cursor:pointer;transition:all .2s;text-align:center;}
+.modo-tab.ativo{background:var(--accent);color:#fff;border-color:var(--accent);}
+#modo-json{display:none;}
+#modo-texto{display:none;}
+.texto-opcoes{margin:.7rem 0;}
+.texto-opcao-row{display:flex;align-items:center;gap:.7rem;}
+.json-drop-area{border:2px dashed var(--linha);border-radius:14px;padding:2.5rem 1rem;text-align:center;cursor:pointer;transition:all .2s;background:var(--bg2);}
+.json-drop-area.drag-over{border-color:var(--accent2);background:color-mix(in srgb,var(--accent2) 8%,var(--bg));}
+.json-drop-icon{font-size:2rem;margin-bottom:.5rem;}
+.json-drop-texto{font-size:.9rem;font-weight:600;color:var(--texto);margin-bottom:.2rem;}
+.json-drop-sub{font-size:.75rem;color:var(--texto-s);}
+.json-preview-wrap{background:var(--bg2);border:1px solid var(--linha);border-radius:12px;padding:1rem;margin-top:.8rem;}
+.json-preview-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:.7rem;gap:.5rem;}
+.json-preview-nome{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--texto);}
+.json-preview-meta{font-size:.72rem;color:var(--texto-s);margin-top:.15rem;}
+.json-preview-etapas{display:flex;flex-direction:column;gap:.3rem;}
+.json-prev-et{display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:var(--texto-s);padding:.3rem 0;border-bottom:1px solid var(--linha);}
+.json-prev-et:last-child{border-bottom:none;}
+.json-prev-num{width:18px;height:18px;border-radius:50%;background:var(--accent);color:#fff;font-size:.56rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.json-erro{background:#FDECEA;border:1px solid #E08080;border-radius:10px;padding:.7rem .9rem;font-size:.78rem;color:#C0392B;margin-top:.8rem;}
+.btn-exportar-proc{display:inline-flex;align-items:center;gap:.28rem;padding:.22rem .6rem;border-radius:7px;border:1px solid var(--linha);background:var(--surface);color:var(--texto-s);font-size:.64rem;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.btn-exportar-proc:hover{border-color:var(--accent2);color:var(--accent);}
+.ia-label{font-size:.76rem;color:var(--texto-s);margin-bottom:.45rem;}
+.ia-textarea{width:100%;min-height:105px;padding:.8rem .95rem;border-radius:11px;border:1.5px solid var(--linha);background:var(--surface);color:var(--texto);font-family:'DM Sans',sans-serif;font-size:.84rem;resize:vertical;line-height:1.6;transition:border-color .2s;}
+.ia-textarea:focus{outline:none;border-color:var(--accent2);}
+.ia-exemplos{display:flex;flex-wrap:wrap;gap:.32rem;margin:.45rem 0 .95rem;}
+.ia-ex{padding:.2rem .62rem;border-radius:7px;border:1px solid var(--linha);background:var(--bg2);color:var(--texto-s);font-size:.68rem;cursor:pointer;transition:all .2s;}
+.ia-ex:hover{border-color:var(--accent2);color:var(--accent);}
+.btn-gerar{width:100%;padding:.68rem;background:var(--accent);color:#fff;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.84rem;font-weight:600;cursor:pointer;transition:all .2s;}
+.btn-gerar:hover{background:var(--accent2);} .btn-gerar:disabled{opacity:.55;cursor:not-allowed;}
+.ia-status{text-align:center;padding:.75rem;font-size:.78rem;color:var(--texto-s);display:none;}
+.ia-status.visivel{display:block;}
+.form-section{margin-bottom:.95rem;}
+.form-label{display:block;font-size:.7rem;font-weight:600;color:var(--texto-s);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.32rem;}
+.form-input,.form-select,.form-textarea{width:100%;padding:.56rem .82rem;border-radius:9px;border:1.5px solid var(--linha);background:var(--surface);color:var(--texto);font-family:'DM Sans',sans-serif;font-size:.82rem;transition:border-color .2s;}
+.form-input:focus,.form-select:focus,.form-textarea:focus{outline:none;border-color:var(--accent2);}
+.form-textarea{min-height:62px;resize:vertical;}
+.etapas-lista{display:flex;flex-direction:column;gap:.5rem;}
+.ef-item{background:var(--bg2);border-radius:10px;padding:.72rem .88rem;border:1px solid var(--linha);}
+.ef-num{font-size:.6rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.32rem;display:flex;justify-content:space-between;align-items:center;}
+.ef-row{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.42rem;}
+.btn-add-ef,.btn-rem-ef{padding:.28rem .72rem;border-radius:7px;font-family:'DM Sans',sans-serif;font-size:.7rem;cursor:pointer;transition:all .2s;}
+.btn-add-ef{border:1.5px dashed var(--linha);background:transparent;color:var(--texto-s);width:100%;margin-top:.38rem;}
+.btn-add-ef:hover{border-color:var(--accent2);color:var(--accent);}
+.btn-rem-ef{border:1px solid var(--linha);background:var(--surface);color:var(--texto-s);}
+.btn-rem-ef:hover{background:#FDECEA;color:#C0392B;border-color:#C0392B;}
+.preview-box{background:var(--bg2);border-radius:11px;border:1px solid var(--linha);padding:1rem;margin:1rem 0;display:none;}
+.preview-box.visivel{display:block;}
+.preview-titulo{font-family:'DM Serif Display',serif;font-size:.95rem;color:var(--texto);margin-bottom:.5rem;}
+.preview-etapa{display:flex;gap:.5rem;align-items:flex-start;padding:.42rem 0;border-bottom:1px solid var(--linha);font-size:.78rem;color:var(--texto-s);}
+.preview-etapa:last-child{border-bottom:none;}
+.preview-num{width:19px;height:19px;border-radius:50%;background:var(--accent);color:#fff;font-size:.58rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.preview-en{font-weight:600;color:var(--texto);}
+.preview-ew{font-size:.6rem;font-weight:600;padding:2px 6px;border-radius:5px;margin-left:.32rem;}
+.btn-salvar-proc{width:100%;padding:.68rem;background:var(--accent3);color:#fff;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.84rem;font-weight:600;cursor:pointer;transition:all .2s;display:none;}
+.btn-salvar-proc.visivel{display:block;} .btn-salvar-proc:hover{opacity:.9;}
+
+/* ── EDIÇÃO IA ── */
+/* Botões na ficha */
+.etapa-ia-actions{display:flex;gap:.3rem;margin-top:-.2rem;}
+.btn-ia-ficha,.btn-hist-ficha{opacity:0;width:22px;height:22px;border-radius:50%;border:1px solid var(--linha);background:var(--surface);font-size:.62rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.etapa-header:hover .btn-ia-ficha,.etapa-header:hover .btn-hist-ficha{opacity:1;}
+.btn-ia-ficha:hover{border-color:var(--accent2);background:color-mix(in srgb,var(--accent2) 10%,var(--surface));}
+.btn-hist-ficha:hover{border-color:var(--accent3);background:color-mix(in srgb,var(--accent3) 10%,var(--surface));}
+
+/* Painel IA inline (por ficha) */
+.ia-ficha-panel{display:none;margin:.5rem 0 .8rem;border:1.5px solid var(--accent2);border-radius:12px;overflow:hidden;}
+.ia-ficha-panel.aberto{display:block;}
+.ia-ficha-instrucao{display:flex;gap:.4rem;padding:.6rem .7rem;background:color-mix(in srgb,var(--accent2) 6%,var(--bg));}
+.ia-ficha-instrucao textarea{flex:1;padding:.38rem .6rem;border-radius:8px;border:1px solid var(--linha);background:var(--surface);color:var(--texto);font-family:'DM Sans',sans-serif;font-size:.76rem;resize:none;height:52px;line-height:1.5;}
+.ia-ficha-instrucao textarea:focus{outline:none;border-color:var(--accent2);}
+.btn-ia-run{padding:.38rem .8rem;background:var(--accent);color:#fff;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .2s;align-self:flex-end;}
+.btn-ia-run:disabled{opacity:.55;cursor:not-allowed;}
+.ia-ficha-preview{padding:.65rem .8rem;background:var(--bg2);border-top:1px solid var(--linha);display:none;}
+.ia-ficha-preview.visivel{display:block;}
+.ia-ficha-preview-label{font-size:.62rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.35rem;}
+.ia-ficha-preview-texto{font-size:.8rem;color:var(--texto);line-height:1.7;white-space:pre-wrap;}
+.ia-ficha-acoes{display:flex;gap:.4rem;margin-top:.6rem;}
+.btn-aplicar{flex:1;padding:.4rem;background:var(--accent3);color:#fff;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.74rem;font-weight:600;cursor:pointer;transition:all .2s;}
+.btn-aplicar:hover{opacity:.88;}
+.btn-descartar{flex:1;padding:.4rem;background:transparent;color:var(--texto-s);border:1px solid var(--linha);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.74rem;cursor:pointer;transition:all .2s;}
+.btn-descartar:hover{border-color:var(--accent2);color:var(--accent);}
+
+/* Painel histórico */
+.hist-panel{display:none;margin:.5rem 0 .8rem;border:1.5px solid var(--accent3);border-radius:12px;overflow:hidden;}
+.hist-panel.aberto{display:block;}
+.hist-header{padding:.5rem .75rem;background:color-mix(in srgb,var(--accent3) 8%,var(--bg));font-size:.68rem;font-weight:600;color:var(--accent3);display:flex;justify-content:space-between;align-items:center;}
+.hist-lista{display:flex;flex-direction:column;}
+.hist-item{padding:.55rem .75rem;border-top:1px solid var(--linha);cursor:pointer;transition:background .15s;}
+.hist-item:hover{background:var(--bg2);}
+.hist-item-label{font-size:.68rem;font-weight:600;color:var(--texto-s);margin-bottom:.18rem;}
+.hist-item-texto{font-size:.75rem;color:var(--texto);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.hist-item-btn{font-size:.64rem;color:var(--accent3);font-weight:600;margin-top:.25rem;}
+
+/* Painel IA processo inteiro */
+.proc-ia-wrap{background:color-mix(in srgb,var(--accent2) 6%,var(--bg));border:1.5px solid var(--accent2);border-radius:14px;padding:1rem;margin-bottom:1rem;display:none;}
+.proc-ia-wrap.aberto{display:block;}
+.proc-ia-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.7rem;}
+.proc-ia-titulo{font-family:'DM Serif Display',serif;font-size:.95rem;color:var(--texto);}
+.btn-fechar-ia{width:24px;height:24px;border-radius:50%;border:1px solid var(--linha);background:var(--surface);color:var(--texto-s);font-size:.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.btn-fechar-ia:hover{background:var(--bg2);}
+.proc-ia-instrucao{display:flex;gap:.5rem;margin-bottom:.7rem;}
+.proc-ia-instrucao textarea{flex:1;padding:.45rem .7rem;border-radius:8px;border:1px solid var(--linha);background:var(--surface);color:var(--texto);font-family:'DM Sans',sans-serif;font-size:.78rem;resize:none;height:58px;line-height:1.5;}
+.proc-ia-instrucao textarea:focus{outline:none;border-color:var(--accent2);}
+.proc-ia-sugestoes{display:flex;flex-direction:column;gap:.5rem;}
+.proc-ia-sug{background:var(--surface);border:1px solid var(--linha);border-radius:10px;overflow:hidden;}
+.proc-ia-sug-header{display:flex;align-items:center;justify-content:space-between;padding:.5rem .75rem;background:var(--bg2);}
+.proc-ia-sug-num{width:20px;height:20px;border-radius:50%;background:var(--accent);color:#fff;font-size:.6rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.proc-ia-sug-titulo{font-size:.8rem;font-weight:600;color:var(--texto);flex:1;margin:0 .5rem;}
+.proc-ia-sug-acoes{display:flex;gap:.3rem;}
+.btn-sug-ok{padding:.22rem .65rem;background:var(--accent3);color:#fff;border:none;border-radius:6px;font-size:.66rem;font-weight:600;cursor:pointer;transition:all .2s;}
+.btn-sug-ok:hover{opacity:.85;}
+.btn-sug-skip{padding:.22rem .65rem;background:transparent;color:var(--texto-s);border:1px solid var(--linha);border-radius:6px;font-size:.66rem;cursor:pointer;transition:all .2s;}
+.btn-sug-skip:hover{border-color:var(--accent2);color:var(--accent);}
+.proc-ia-sug-body{padding:.55rem .75rem;font-size:.78rem;color:var(--texto-s);line-height:1.65;white-space:pre-wrap;}
+.proc-ia-status{font-size:.76rem;color:var(--texto-s);text-align:center;padding:.5rem;}
+
+/* Botão IA no topo do processo */
+.btn-ia-proc{display:inline-flex;align-items:center;gap:.3rem;padding:.32rem .75rem;border-radius:12px;border:1.5px solid var(--accent2);background:color-mix(in srgb,var(--accent2) 8%,var(--bg));color:var(--accent2);font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:600;cursor:pointer;transition:all .2s;}
+.btn-ia-proc:hover{background:color-mix(in srgb,var(--accent2) 16%,var(--bg));}
+#tela-processo{display:none;}
+.proc-wrap{max-width:640px;margin:0 auto;padding:1.5rem 1.4rem 5rem;}
+.proc-topo{display:flex;align-items:center;gap:.75rem;margin-bottom:.95rem;}
+.proc-nome{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--texto);flex:1;}
+.proc-desc{font-size:.74rem;color:var(--texto-s);margin-top:.12rem;}
+.ferramentas{display:flex;gap:.38rem;flex-wrap:wrap;margin-bottom:.85rem;}
+.ferr-btn{display:inline-flex;align-items:center;gap:.28rem;padding:.3rem .68rem;border-radius:13px;font-size:.68rem;font-weight:600;border:1.5px solid transparent;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.ferr-btn:hover{transform:translateY(-1px);box-shadow:0 3px 9px rgba(0,0,0,0.1);}
+.ferr-btn .dot{width:5px;height:5px;border-radius:50%;}
+.ferr-btn.doc{background:#FFF4E8;color:#C47A2E;border-color:#F0D9B8;} .ferr-btn.doc .dot{background:#C47A2E;}
+.ferr-btn.deep{background:#E8F4FD;color:#2E7CB7;border-color:#C0DFF5;} .ferr-btn.deep .dot{background:#2E7CB7;}
+.ferr-btn.gem{background:#F0F4FF;color:#4A5EC9;border-color:#C8D3F5;} .ferr-btn.gem .dot{background:#4A5EC9;}
+.ferr-btn.note{background:#EDF7F0;color:#2E7A50;border-color:#C0E5CB;} .ferr-btn.note .dot{background:#2E7A50;}
+[data-modo="escuro"] .ferr-btn.doc{background:#2A1E0E;border-color:#3D2A0A;}
+[data-modo="escuro"] .ferr-btn.deep{background:#0E1E2A;border-color:#0A2A3D;}
+[data-modo="escuro"] .ferr-btn.gem{background:#0E1022;border-color:#1A1C3D;}
+[data-modo="escuro"] .ferr-btn.note{background:#0E2018;border-color:#0A3020;}
+.tl-wrap{background:var(--topo-bg);border-bottom:1px solid var(--linha);padding:.52rem 1.4rem;overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -1.4rem 1rem;}
+.tl{display:flex;align-items:flex-start;gap:0;min-width:max-content;}
+.tl-item{display:flex;align-items:center;}
+.tl-inner{display:flex;flex-direction:column;align-items:center;}
+.tl-btn{width:27px;height:27px;border-radius:50%;border:2px solid var(--linha);background:var(--surface);color:var(--texto-s);font-family:'DM Serif Display',serif;font-size:.76rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;}
+.tl-btn:hover{border-color:var(--accent2);color:var(--accent);}
+.tl-btn.ativa{background:var(--accent);border-color:var(--accent);color:#fff;}
+.tl-btn.feita{background:var(--accent3);border-color:var(--accent3);color:#fff;}
+.tl-linha{width:19px;height:2px;background:var(--linha);flex-shrink:0;margin-bottom:10px;}
+.tl-linha.feita{background:var(--accent3);}
+.tl-label{font-size:.54rem;color:var(--texto-s);text-align:center;margin-top:.16rem;white-space:nowrap;}
+.etapa{background:var(--surface);border-radius:14px;padding:1.25rem;margin-bottom:.85rem;border:1px solid var(--linha);transition:box-shadow .2s,opacity .3s;}
+.etapa:hover{box-shadow:0 4px 16px rgba(0,0,0,0.07);}
+.etapa.concluida{opacity:.4;background:var(--bg2);}
+.etapa.ativa{border-color:var(--accent2);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 10%,transparent);}
+.etapa-header{display:flex;align-items:center;gap:.7rem;margin-bottom:.82rem;}
+.numero{width:27px;height:27px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:.82rem;flex-shrink:0;}
+.etapa.concluida .numero{background:var(--accent3);}
+.etapa.concluida .numero-num{display:none;}
+.numero-check{display:none;}
+.etapa.concluida .numero-check{display:block;}
+.etapa-titulo{font-family:'DM Serif Display',serif;font-size:.93rem;color:var(--texto);flex:1;}
+.campo-instrucao{display:block;width:100%;line-height:1.75;color:var(--texto-s);font-size:.84rem;}
+.campo-instrucao:focus{color:var(--texto);}
+.editable[contenteditable="true"]{cursor:text;border-radius:4px;transition:background .15s;padding:1px 3px;margin:-1px -3px;min-height:1em;display:inline-block;}
+.editable[contenteditable="true"]:hover{background:color-mix(in srgb,var(--accent) 7%,transparent);}
+.editable[contenteditable="true"]:focus{outline:2px solid var(--accent2);outline-offset:1px;background:var(--surface);color:var(--texto);}
+.campo-instrucao[contenteditable="true"]{display:block;width:100%;}
+.btn-editar-etapa{opacity:0;width:22px;height:22px;border-radius:50%;border:1px solid var(--linha);background:var(--surface);color:var(--texto-s);font-size:.62rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-left:.2rem;}
+.etapa-header:hover .btn-editar-etapa{opacity:1;}
+.btn-editar-etapa:hover{border-color:var(--accent2);color:var(--accent);}
+.url-edit-wrap{display:flex;flex-direction:column;gap:.35rem;margin:.3rem 0 .5rem;padding:.6rem .7rem;background:var(--bg2);border-radius:8px;border:1px solid var(--linha);}
+.url-edit-row{display:flex;align-items:center;gap:.4rem;}
+.url-edit-input{flex:1;padding:.28rem .55rem;border-radius:7px;border:1px solid var(--linha);background:var(--surface);color:var(--texto);font-family:'DM Sans',sans-serif;font-size:.7rem;transition:border-color .2s;}
+.url-edit-input:focus{outline:none;border-color:var(--accent2);}
+.url-edit-label{font-size:.62rem;color:var(--texto-s);white-space:nowrap;min-width:32px;}
+.onde{font-size:.58rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:2px 7px;border-radius:12px;flex-shrink:0;}
+.onde.deepseek{background:#E8F4FD;color:#2E7CB7;} .onde.gemini{background:#F0F4FF;color:#4A5EC9;}
+.onde.word,.onde.docs{background:#FFF4E8;color:#C47A2E;} .onde.notebooklm,.onde.notebook{background:#EDF7F0;color:#2E7A50;}
+.onde.generico{background:var(--bg2);color:var(--texto-s);}
+[data-modo="escuro"] .onde.deepseek{background:#0E1E2A;} [data-modo="escuro"] .onde.gemini{background:#0E1022;}
+[data-modo="escuro"] .onde.docs,[data-modo="escuro"] .onde.word{background:#2A1E0E;}
+[data-modo="escuro"] .onde.notebooklm,[data-modo="escuro"] .onde.notebook{background:#0E2018;}
+.etapa-corpo{font-size:.84rem;line-height:1.75;color:var(--texto-s);}
+.acao{background:var(--bg2);border-radius:9px;padding:.68rem .85rem;margin-top:.62rem;font-size:.79rem;color:var(--texto);line-height:1.6;}
+.acao strong{color:var(--accent);display:block;margin-bottom:.2rem;font-size:.63rem;text-transform:uppercase;letter-spacing:.06em;}
+.lembrete{border-left:3px solid var(--accent2);border-radius:0 7px 7px 0;background:color-mix(in srgb,var(--accent) 6%,var(--bg));padding:.48rem .85rem;margin-top:.62rem;font-size:.76rem;color:var(--texto-s);font-style:italic;}
+.condicional{border-left:3px solid var(--accent3);border-radius:0 7px 7px 0;background:color-mix(in srgb,var(--accent3) 8%,var(--bg));padding:.48rem .85rem;margin-top:.62rem;font-size:.76rem;color:var(--texto-s);}
+.condicional strong{color:var(--accent3);display:block;margin-bottom:.18rem;font-size:.63rem;text-transform:uppercase;letter-spacing:.06em;}
+.btn-abrir{display:inline-flex;align-items:center;gap:.3rem;margin:.52rem 0 .72rem;padding:.36rem .82rem;border-radius:13px;font-size:.68rem;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;border:1.5px solid transparent;transition:all .2s;}
+.btn-abrir:hover{transform:translateY(-1px);box-shadow:0 3px 9px rgba(0,0,0,0.1);}
+.btn-abrir.doc{background:#FFF4E8;color:#C47A2E;border-color:#F0D9B8;}
+.btn-abrir.deep{background:#E8F4FD;color:#2E7CB7;border-color:#C0DFF5;}
+.btn-abrir.gem{background:#F0F4FF;color:#4A5EC9;border-color:#C8D3F5;}
+.btn-abrir.note{background:#EDF7F0;color:#2E7A50;border-color:#C0E5CB;}
+.btn-abrir.gen{background:var(--bg2);color:var(--texto-s);border-color:var(--linha);}
+[data-modo="escuro"] .btn-abrir.doc{background:#2A1E0E;border-color:#3D2A0A;}
+[data-modo="escuro"] .btn-abrir.deep{background:#0E1E2A;border-color:#0A2A3D;}
+[data-modo="escuro"] .btn-abrir.gem{background:#0E1022;border-color:#1A1C3D;}
+[data-modo="escuro"] .btn-abrir.note{background:#0E2018;border-color:#0A3020;}
+.btn-promover{display:inline-flex;align-items:center;gap:.3rem;margin-top:.7rem;padding:.28rem .7rem;border-radius:8px;border:1px dashed var(--accent3);background:color-mix(in srgb,var(--accent3) 8%,var(--bg));color:var(--accent3);font-family:'DM Sans',sans-serif;font-size:.68rem;font-weight:600;cursor:pointer;transition:all .2s;}
+.btn-check{width:100%;margin-top:2rem;padding:.6rem;border:1.5px solid var(--linha);border-radius:9px;background:var(--surface);color:var(--texto-s);font-family:'DM Sans',sans-serif;font-size:.79rem;cursor:pointer;transition:all .2s;}
+.btn-check:hover{border-color:var(--accent3);color:var(--accent3);}
+.etapa.concluida .btn-check{border-color:var(--accent3);color:var(--accent3);}
+.celebracao{text-align:center;padding:1.7rem;background:color-mix(in srgb,var(--accent3) 8%,var(--bg));border-radius:14px;border:1px solid var(--linha);margin-top:.85rem;display:none;}
+.celebracao.visivel{display:block;}
+.celebracao h2{font-family:'DM Serif Display',serif;font-size:1.25rem;color:var(--accent3);margin-bottom:.42rem;}
+.celebracao p{font-size:.8rem;color:var(--texto-s);line-height:1.6;}
+.reset-btn{display:block;margin:1.2rem auto 0;padding:.48rem 1.25rem;background:transparent;border:1px solid var(--linha);border-radius:14px;color:var(--texto-s);font-family:'DM Sans',sans-serif;font-size:.74rem;cursor:pointer;transition:all .2s;}
+.reset-btn:hover{border-color:var(--accent2);color:var(--accent);}
+
+/* SAVE BAR */
+.save-bar{background:var(--bg2);border-top:1px solid var(--linha);padding:.52rem 1.4rem;display:flex;align-items:center;gap:.45rem;position:fixed;bottom:0;left:0;right:0;z-index:50;font-size:.7rem;color:var(--texto-s);}
+.btn-sv,.btn-ld{padding:.26rem .78rem;border-radius:7px;font-family:'DM Sans',sans-serif;font-size:.68rem;cursor:pointer;transition:all .2s;}
+.btn-sv{background:var(--accent);color:#fff;border:none;} .btn-sv:hover{background:var(--accent2);}
+.btn-ld{background:var(--surface);color:var(--texto-s);border:1px solid var(--linha);} .btn-ld:hover{border-color:var(--accent2);color:var(--accent);}
+.save-info{flex:1;}
+
+@media(max-width:480px){.processos-grid,.clientes-grid{grid-template-columns:1fr;}.ef-row{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<!-- ══ TELA DE ACESSO ══ -->
+<div id="tela-acesso">
+  <div class="acesso-card">
+    <div class="acesso-logo"><img src="https://d1yei2z3i6k35z.cloudfront.net/3119789/69f59543269857.76143509_BetaLogoSEQLIST2.png" alt="SEQLIST" style="height:104px;object-fit:contain;"></div>
+    <div class="acesso-sub">by FNW · Assessoria em Tecnologia & Negócios</div>
+
+    <!-- Acesso por senha de perfil -->
+    <label class="acesso-label">Código de acesso</label>
+    <input class="acesso-input" id="input-codigo" type="password" placeholder="Código enviado pela FNW" onkeydown="if(event.key==='Enter')entrarPorCodigo()">
+    <button class="btn-entrar" onclick="entrarPorCodigo()">Entrar →</button>
+    <div class="acesso-codigo-erro" id="acesso-codigo-erro" style="display:none">Código não encontrado.</div>
+
+    <div class="acesso-divisor"><span>ou entre com seu nome</span></div>
+    <label class="acesso-label">Seu nome</label>
+    <input class="acesso-input" id="input-nome" placeholder="Como você se chama?" onkeydown="if(event.key==='Enter')entrar()">
+    <button class="btn-entrar" style="background:var(--bg2);color:var(--texto-s);border:1.5px solid var(--linha)" onclick="entrar()" onmouseover="this.style.borderColor='var(--accent2)'" onmouseout="this.style.borderColor='var(--linha)'">Entrar pelo nome →</button>
+
+    <!-- Importar acesso -->
+    <div class="acesso-import-wrap">
+      <div class="acesso-divisor"><span>ou</span></div>
+      <label class="btn-importar-acesso">
+        ⬆ Importar acesso
+        <input type="file" accept=".json" style="display:none" onchange="importarAcesso(event)">
+      </label>
+      <div class="acesso-import-hint">Recebeu um arquivo de acesso da FNW? Carregue aqui.</div>
+      <div class="acesso-import-ok" id="acesso-import-ok" style="display:none"></div>
+    </div>
+
+    <div class="acesso-admin-toggle" onclick="toggleAdminBox()">acesso administrativo</div>
+    <div class="acesso-admin-box" id="admin-box">
+      <div class="acesso-admin-hint">Senha de acesso FNW</div>
+      <input class="acesso-input" id="input-senha" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')entrarAdmin()">
+      <button class="btn-entrar" onclick="entrarAdmin()">Entrar como FNW →</button>
+    </div>
+
+    <div class="tema-acesso">
+      <button class="btn-ta ativo" data-t="chumbo" onclick="setTema('chumbo')"></button>
+      <button class="btn-ta" data-t="terracota" onclick="setTema('terracota')"></button>
+      <button class="btn-ta" data-t="verde" onclick="setTema('verde')"></button>
+      <button class="btn-ta" data-t="indigo" onclick="setTema('indigo')"></button>
+      <div class="divt"></div>
+      <button class="btn-ma ativo" id="ac-claro" onclick="setModo('claro')">☀️</button>
+      <button class="btn-ma" id="ac-escuro" onclick="setModo('escuro')">🌙</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TOPO ══ -->
+<div class="topo" id="topo-principal" style="display:none">
+  <div class="topo-esq">
+    <div class="topo-logo"><img src="https://d1yei2z3i6k35z.cloudfront.net/3119789/69f59543269857.76143509_BetaLogoSEQLIST2.png" alt="SEQLIST" style="height:52px;object-fit:contain;display:block;"></div>
+    <div class="topo-div"></div>
+    <div class="topo-cliente" id="topo-label"></div>
+  </div>
+  <div class="topo-dir">
+    <button class="btn-tema" data-t="chumbo" onclick="setTema('chumbo')"></button>
+    <button class="btn-tema" data-t="terracota" onclick="setTema('terracota')"></button>
+    <button class="btn-tema" data-t="verde" onclick="setTema('verde')"></button>
+    <button class="btn-tema" data-t="indigo" onclick="setTema('indigo')"></button>
+    <div class="divv"></div>
+    <button class="btn-modo ativo" id="btn-claro" onclick="setModo('claro')">☀️</button>
+    <button class="btn-modo" id="btn-escuro" onclick="setModo('escuro')">🌙</button>
+    <div class="divv"></div>
+    <!-- chave groq -->
+    <div style="position:relative">
+      <button class="btn-groq" id="btn-groq" onclick="toggleGroq(event)" title="API Key Groq">🔑</button>
+      <div class="groq-dropdown" id="groq-dropdown">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.35rem;">
+          <label style="margin:0">Groq API Key</label>
+          <a href="https://console.groq.com/keys" target="_blank" style="font-size:.62rem;color:var(--accent2);text-decoration:none;border:1px solid var(--linha);padding:2px 7px;border-radius:6px;transition:all .2s;white-space:nowrap;" onmouseover="this.style.borderColor='var(--accent2)'" onmouseout="this.style.borderColor='var(--linha)'">↗ Criar chave</a>
+        </div>
+        <input type="password" id="groq-key" placeholder="gsk_..." oninput="salvarGroqKey()">
+        <span class="groq-st" id="groq-status">—</span>
+      </div>
+    </div>
+    <div class="divv"></div>
+    <button class="btn-sair" onclick="sair()">Sair</button>
+  </div>
+</div>
+
+<!-- ══ ADMIN ══ -->
+<div id="tela-admin">
+  <div class="admin-wrap">
+    <div class="admin-header">
+      <div class="admin-titulo">Clientes <span><img src="https://d1yei2z3i6k35z.cloudfront.net/3119789/69f59543269857.76143509_BetaLogoSEQLIST2.png" alt="FNW" style="height:22px;object-fit:contain;vertical-align:middle;"></span></div>
+      <button class="btn-add-c" onclick="abrirModalCliente()">+ Novo cliente</button>
+    </div>
+
+    <!-- Nota informativa -->
+    <div class="admin-nota">
+      <div class="admin-nota-icone">💡</div>
+      <div class="admin-nota-texto">
+        <strong>Este HTML é sua versão master.</strong> Sempre que fizer alterações, exporte um novo HTML (⬇ HTML) e redistribua para os clientes.
+        Processos criados pelos clientes no navegador deles <em>não voltam automaticamente</em> para cá — peça o JSON de exportação deles e importe antes de gerar um novo HTML.
+      </div>
+      <button class="admin-nota-fechar" onclick="this.parentElement.style.display='none'">✕</button>
+    </div>
+
+    <div class="clientes-grid" id="clientes-grid"></div>
+
+    <div class="admin-bib-header">
+      <div class="admin-bib-titulo">Biblioteca de processos</div>
+      <button class="btn-add-bib" onclick="irParaNovaBib()">+ Novo processo</button>
+    </div>
+    <div id="bib-lista"></div>
+  </div>
+</div>
+
+<!-- ══ HUB CLIENTE ══ -->
+<div id="tela-hub">
+  <div class="hub-wrap">
+    <div class="hub-header">
+      <div>
+        <div class="hub-saudacao" id="hub-saudacao"></div>
+        <div class="hub-sub">Escolha um processo para começar.</div>
+      </div>
+      <button class="btn-nova" onclick="irParaNova()" style="${nivelAcesso==='leitura'&&!modoAdminGerenciaCliente?'display:none':''}">+ Nova atividade</button>
+    </div>
+    <div class="processos-grid" id="processos-grid"></div>
+    <div class="hub-vazio" id="hub-vazio" style="display:none">
+      <div class="hub-vazio-icon">📋</div>
+      <p>Nenhum processo ainda.<br>Clique em <strong>+ Nova atividade</strong> para começar.</p>
+    </div>
+
+    <!-- Biblioteca pessoal do cliente -->
+    <div class="cliente-bib-secao">
+      <div class="admin-bib-header" style="margin-top:2rem">
+        <div class="admin-bib-titulo">📚 Minha biblioteca</div>
+        <button class="btn-add-bib" onclick="irParaNovaBibCliente()">+ Salvar processo</button>
+      </div>
+      <div id="cliente-bib-lista"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TELA NOVA ══ -->
+<div id="tela-nova">
+  <div class="nova-wrap">
+    <div class="nova-header">
+      <button class="btn-voltar" onclick="irParaHub()">←</button>
+      <div class="nova-titulo">Nova atividade</div>
+    </div>
+    <div class="modo-tabs">
+      <button class="modo-tab ativo" id="tab-ia" onclick="setModoNova('ia')">✨ Descrever</button>
+      <button class="modo-tab" id="tab-texto" onclick="setModoNova('texto')">📋 Colar texto</button>
+      <button class="modo-tab" id="tab-form" onclick="setModoNova('form')">📝 Manual</button>
+      <button class="modo-tab" id="tab-json" onclick="setModoNova('json')">📂 JSON</button>
+    </div>
+    <div id="modo-ia">
+      <p class="ia-label">Descreva o processo em linguagem natural. A IA monta as fichas automaticamente.</p>
+      <textarea class="ia-textarea" id="ia-desc" placeholder="Ex: revisão mensal de métricas — acesso o Analytics, depois o Sheets, documento os insights..."></textarea>
+      <div class="ia-exemplos">
+        <span class="ia-ex" onclick="fillEx(this)">Revisão de métricas mensais</span>
+        <span class="ia-ex" onclick="fillEx(this)">Criação de proposta comercial</span>
+        <span class="ia-ex" onclick="fillEx(this)">Onboarding de novo cliente</span>
+        <span class="ia-ex" onclick="fillEx(this)">Agendamento de posts</span>
+      </div>
+      <button class="btn-gerar" id="btn-gerar" onclick="gerarIA()">✨ Gerar processo</button>
+      <div class="ia-status" id="ia-status"></div>
+    </div>
+
+    <!-- MODO COLAR TEXTO -->
+    <div id="modo-texto">
+      <p class="ia-label">Cole qualquer texto — SOP, e-mail, documento, anotações, markdown. O Groq detecta o formato e monta as etapas.</p>
+      <textarea class="ia-textarea" id="texto-colado" style="min-height:180px" placeholder="Cole aqui o texto do processo...
+
+Pode ser:
+• Um SOP ou procedimento operacional
+• Um e-mail com instruções
+• Uma lista de passos em markdown
+• Anotações livres de reunião
+• Qualquer documento descrevendo como fazer algo"></textarea>
+      <div class="texto-opcoes">
+        <div class="texto-opcao-row">
+          <label class="form-label" style="margin:0;white-space:nowrap">Nome do processo (opcional)</label>
+          <input class="form-input" id="texto-nome" placeholder="Deixe em branco para a IA sugerir">
+        </div>
+      </div>
+      <button class="btn-gerar" id="btn-texto" onclick="gerarDoTexto()">📋 Interpretar e montar fichas</button>
+      <div class="ia-status" id="texto-status"></div>
+    </div>
+    <div id="modo-form">
+      <div class="form-section">
+        <label class="form-label">Ícone</label>
+        <input class="form-input" id="f-icone" placeholder="📋" style="width:68px">
+      </div>
+      <div class="form-section">
+        <label class="form-label">Nome do processo</label>
+        <input class="form-input" id="f-nome" placeholder="Ex: Scripting de Conteúdo">
+      </div>
+      <div class="form-section">
+        <label class="form-label">Descrição curta</label>
+        <input class="form-input" id="f-desc" placeholder="Ex: Produção semanal de posts">
+      </div>
+      <div class="form-section">
+        <label class="form-label">Etapas</label>
+        <div class="etapas-lista" id="etapas-lista"></div>
+        <button class="btn-add-ef" onclick="addEF()">+ Adicionar etapa</button>
+      </div>
+      <button class="btn-gerar" onclick="salvarForm()">Criar processo</button>
+    </div>
+    <div id="modo-json">
+      <div class="json-drop-area" id="json-drop-area"
+        ondragover="event.preventDefault();this.classList.add('drag-over')"
+        ondragleave="this.classList.remove('drag-over')"
+        ondrop="onDropJSON(event)">
+        <div class="json-drop-icon">📂</div>
+        <div class="json-drop-texto">Arraste um arquivo JSON aqui</div>
+        <div class="json-drop-sub">ou clique para selecionar</div>
+        <label class="btn-gerar" style="display:inline-block;cursor:pointer;margin-top:.8rem;width:auto;padding:.5rem 1.4rem">
+          Selecionar arquivo
+          <input type="file" accept=".json" style="display:none" onchange="onSelectJSON(event)">
+        </label>
+      </div>
+      <div class="json-preview-wrap" id="json-preview-wrap" style="display:none">
+        <div class="json-preview-header">
+          <div class="json-preview-info">
+            <div class="json-preview-nome" id="json-preview-nome"></div>
+            <div class="json-preview-meta" id="json-preview-meta"></div>
+          </div>
+          <button class="btn-descartar" onclick="limparJSONImport()">✕ Limpar</button>
+        </div>
+        <div class="json-preview-etapas" id="json-preview-etapas"></div>
+        <button class="btn-gerar" style="margin-top:.8rem" onclick="salvarJSONImport()">✓ Adicionar este processo</button>
+      </div>
+      <div class="json-erro" id="json-erro" style="display:none"></div>
+    </div>
+    <div class="preview-box" id="preview-box">
+      <div class="preview-titulo" id="preview-nome"></div>
+      <div id="preview-etapas"></div>
+    </div>
+    <button class="btn-salvar-proc" id="btn-salvar-prev" onclick="salvarPreview()">✓ Salvar este processo</button>
+  </div>
+</div>
+
+<!-- ══ PROCESSO ══ -->
+<div id="tela-processo">
+  <div class="proc-wrap">
+    <div class="proc-topo">
+      <button class="btn-voltar" onclick="irParaHub()">←</button>
+      <div style="flex:1">
+        <div class="proc-nome" id="proc-nome"></div>
+        <div class="proc-desc" id="proc-desc"></div>
+      </div>
+      <button class="btn-ia-proc" onclick="toggleIAProcesso()">✨ Melhorar com IA</button>
+    </div>
+
+    <!-- Painel IA processo inteiro -->
+    <div class="proc-ia-wrap" id="proc-ia-wrap">
+      <div class="proc-ia-header">
+        <div class="proc-ia-titulo">✨ Melhorar processo com IA</div>
+        <button class="btn-fechar-ia" onclick="toggleIAProcesso()">✕</button>
+      </div>
+      <div class="proc-ia-instrucao">
+        <textarea id="proc-ia-instrucao" placeholder="Ex: torna as instruções mais simples, adiciona exemplos práticos, adapta para iniciantes..."></textarea>
+        <button class="btn-ia-run" id="btn-ia-proc-run" onclick="analisarProcessoIA()">✨ Analisar</button>
+      </div>
+      <div class="proc-ia-status" id="proc-ia-status" style="display:none"></div>
+      <div class="proc-ia-sugestoes" id="proc-ia-sugestoes"></div>
+    </div>
+
+    <div class="proc-sticky">
+      <div class="ferramentas" id="proc-ferr"></div>
+      <div class="tl-wrap"><div class="tl" id="proc-tl"></div></div>
+    </div>
+    <div id="proc-etapas"></div>
+    <div class="celebracao" id="celebracao">
+      <h2>Processo concluído. ✓</h2>
+      <p>Você fez o caminho inteiro.<br>Na próxima vez fica mais fácil.</p>
+    </div>
+    <button class="reset-btn" onclick="resetProc()">Reiniciar processo</button>
+  </div>
+</div>
+
+<!-- MODAL CLIENTE -->
+<div class="modal-ov" id="modal-cliente">
+  <div class="modal-box">
+    <div class="modal-titulo" id="mc-titulo">Novo cliente</div>
+    <input type="hidden" id="mc-id">
+    <label class="modal-label">Nome do cliente</label>
+    <input class="modal-input" id="mc-nome" placeholder="Nome do cliente">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem">
+      <div>
+        <label class="modal-label">Código de acesso</label>
+        <input class="modal-input" id="mc-senha" placeholder="Ex: andrea123" style="margin-bottom:0">
+        <div style="font-size:.62rem;color:var(--texto-s);margin-top:.2rem">Cliente usará este código para entrar</div>
+      </div>
+      <div>
+        <label class="modal-label">Nível de acesso</label>
+        <select class="modal-input" id="mc-nivel" style="margin-bottom:0">
+          <option value="total">Total — pode criar e editar</option>
+          <option value="leitura">Leitura — só visualiza</option>
+        </select>
+      </div>
+    </div>
+    <label class="modal-label" style="margin-top:.9rem" id="mc-procs-label">Processos da biblioteca para carregar</label>
+    <div class="modal-proc-lista" id="mc-procs"></div>
+    <div class="modal-acoes">
+      <button class="btn-m no" onclick="fecharModal()">Cancelar</button>
+      <button class="btn-m ok" id="mc-btn-salvar" onclick="salvarCliente()">Criar cliente</button>
+    </div>
+  </div>
+</div>
+
+<!-- SAVE BAR -->
+<div class="save-bar" id="save-bar" style="display:none">
+  <span class="save-info" id="save-info">—</span>
+  <button class="btn-sv" id="btn-exportar-html" onclick="exportarHTML()" style="background:var(--accent3);display:none" title="Exportar HTML com dados embutidos">⬇ HTML</button>
+  <button class="btn-sv" onclick="exportar()">⬇ JSON</button>
+  <label class="btn-ld" style="cursor:pointer">⬆ Importar<input type="file" accept=".json" style="display:none" onchange="importar(event)"></label>
+</div>
+
+<!-- SEQLIST_EMBEDDED_DATA -->
+<script id="seqlist-data" type="application/json"></script>
+
+<script>
+// ═══════════════════════════════
+const SENHA_ADMIN = 'fnw2025';
+const root = document.documentElement;
+
+const FMAP = {
+  deepseek:{cls:'deep',label:'DeepSeek'}, gemini:{cls:'gem',label:'Gemini'},
+  notion:{cls:'note',label:'Notion'},     notebooklm:{cls:'note',label:'Notebook LM'},
+  notebook:{cls:'note',label:'Notebook LM'}, docs:{cls:'doc',label:'Google Docs'},
+  word:{cls:'doc',label:'Word'},          sheets:{cls:'doc',label:'Google Sheets'},
+  drive:{cls:'doc',label:'Google Drive'},
+};
+const FCOR = {deepseek:'#2E7CB7',gemini:'#4A5EC9',notion:'#2E7A50',notebooklm:'#C47A2E',notebook:'#C47A2E',docs:'#C47A2E',word:'#2E7A50',sheets:'#2E7A50'};
+
+const BIBLIOTECA = [
+  { id:'scripting-conteudo', icone:'✍️', nome:'Scripting de Conteúdo', descricao:'Produção semanal de posts para Instagram',
+    etapas:[
+      {titulo:'Abrir e localizar',ferramenta:'notebooklm',url:'https://notebooklm.google.com/notebook/5c32c8d4-9704-40a1-8ae1-81feb0b7322e',instrucao:'Abra o Chrome com a conta <strong>andbastazin</strong> e acesse o grupo de abas salvo. As quatro ferramentas ficam sempre visíveis no topo desta página.',acao:{titulo:'Identificar o próximo post',texto:'No Notebook LM vá para a Linha Editorial. Qual post da Semana 1 não tem "já feito" na frente? Esse é o da vez.'},lembrete:'Tudo já está feito. É só continuar de onde parou.'},
+      {titulo:'Gerar insumo',ferramenta:'deepseek',url:'https://chat.deepseek.com/a/chat/s/cadded42-90b4-4965-97f7-ff514b674109',instrucao:'Abra o DeepSeek e peça o insumo do post escolhido.',acao:{titulo:'O que escrever',texto:'"Agora vamos fazer o [Post 3]. Me dê o insumo para o carrossel."'},lembrete:'O DeepSeek gera o rascunho bruto. O refinamento acontece no Gemini.'},
+      {titulo:'Refinar',ferramenta:'gemini',url:'https://gemini.google.com/app/26e21e6db6f23137?hl=pt-BR',instrucao:'Copie o insumo do DeepSeek e cole no Gemini com uma instrução curta antes.',acao:{titulo:'O que escrever antes de colar',texto:'"Vou te mandar o [Post 3] como insumo. Refine como fizemos no anterior."'},lembrete:'"Como fizemos no anterior" já carrega tudo que foi acordado. Não precisa repetir.'},
+      {titulo:'Ler e avaliar',ferramenta:'gemini',url:'https://gemini.google.com/app/26e21e6db6f23137?hl=pt-BR',instrucao:'Leia o post que o Gemini trouxe. Slide por slide.',acao:{titulo:'Se algum slide não serve',texto:'Escreva no Gemini: "Slide [número]: [o que precisa mudar]. Mantém todo o resto e me manda o post inteiro corrigido."'},lembrete:'Em média um slide por post precisa de ajuste. É rápido.'},
+      {titulo:'Salvar no Word',ferramenta:'docs',url:'https://docs.google.com/document/d/12M1sFWJ6d5ofp_Az1UlT78IR5jr7TJNO_kb9XCGL86w/edit?tab=t.p3n6wmlz0a5k',instrucao:'Post aprovado? Copie e cole no documento dos posts.',acao:{titulo:'Documento Word',texto:'Um post aprovado por vez. Quando a semana estiver completa, esse documento vai para o grupo.'},lembrete:null},
+      {titulo:'Registrar e fechar',ferramenta:'notebooklm',url:'https://notebooklm.google.com/notebook/5c32c8d4-9704-40a1-8ae1-81feb0b7322e',instrucao:'Volte ao Notebook LM e escreva "já feito" na frente do post que acabou.',acao:{titulo:'Antes de fechar',texto:'Anote qual é o próximo post. Assim você não começa do zero na próxima vez.'},lembrete:'Esse passo garante a continuidade. Não pula.'}
+    ]
+  }
+];
+
+// ═══════════════════════════════
+//  ESTADO
+// ═══════════════════════════════
+let modoAdmin=false, modoAdminGerenciaCliente=false, modoNovaBib=false, modoNovaBibCliente=false, nivelAcesso='total', clienteAtivo=null, clientes=[], biblioteca=[], processos=[], processoAtivo=null, preview=null, efCount=0;
+
+// ═══════════════════════════════
+//  TEMA / MODO
+// ═══════════════════════════════
+function setTema(t){
+  root.setAttribute('data-tema',t);
+  document.querySelectorAll('[data-t]').forEach(b=>b.classList.toggle('ativo',b.dataset.t===t));
+  salvarPrefs();
+}
+function setModo(m){
+  root.setAttribute('data-modo',m);
+  ['btn-claro','btn-escuro','ac-claro','ac-escuro'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.classList.toggle('ativo',el.id.includes(m==='claro'?'claro':'escuro'));
+  });
+  salvarPrefs();
+}
+function salvarPrefs(){try{localStorage.setItem('fnw-prefs',JSON.stringify({tema:root.getAttribute('data-tema'),modo:root.getAttribute('data-modo')}));}catch(e){}}
+function carregarPrefs(){try{const p=JSON.parse(localStorage.getItem('fnw-prefs')||'{}');if(p.tema)setTema(p.tema);if(p.modo)setModo(p.modo);}catch(e){}}
+
+// ═══════════════════════════════
+//  ACESSO
+// ═══════════════════════════════
+function importarAcesso(event){
+  const file=event.target.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const data=JSON.parse(e.target.result);
+      const okEl=document.getElementById('acesso-import-ok');
+
+      // Formato global (admin): {clientes, biblioteca}
+      if(data.clientes&&Array.isArray(data.clientes)){
+        clientes=data.clientes;
+        if(data.biblioteca){biblioteca=data.biblioteca;salvarBiblioteca();}
+        salvarClientes();
+        okEl.textContent=`✓ ${clientes.length} cliente(s) carregado(s). Digite seu nome para entrar.`;
+        okEl.style.display='block';
+        document.getElementById('input-nome').focus();
+        return;
+      }
+
+      // Formato de cliente individual: {cliente: {...}}
+      if(data.cliente&&data.cliente.nome){
+        carregarClientes();
+        const idx=clientes.findIndex(c=>c.id===data.cliente.id||c.nome.toLowerCase()===data.cliente.nome.toLowerCase());
+        if(idx>=0) clientes[idx]=data.cliente;
+        else clientes.push(data.cliente);
+        salvarClientes();
+        // preenche o nome automaticamente
+        document.getElementById('input-nome').value=data.cliente.nome;
+        okEl.textContent=`✓ Acesso de ${data.cliente.nome} carregado. Clique em Entrar.`;
+        okEl.style.display='block';
+        return;
+      }
+
+      // Formato legado sem wrapper: objeto de cliente direto
+      if(data.nome&&data.processos){
+        carregarClientes();
+        const idx=clientes.findIndex(c=>c.nome.toLowerCase()===data.nome.toLowerCase());
+        if(idx>=0) clientes[idx]=data;
+        else clientes.push(data);
+        salvarClientes();
+        document.getElementById('input-nome').value=data.nome;
+        okEl.textContent=`✓ Acesso de ${data.nome} carregado. Clique em Entrar.`;
+        okEl.style.display='block';
+        return;
+      }
+
+      alert('Arquivo não reconhecido. Verifique se é um arquivo de acesso SEQLIST válido.');
+    }catch(err){
+      alert('Erro ao ler o arquivo: '+err.message);
+    }
+  };
+  reader.readAsText(file);
+  event.target.value='';
+}
+
+function entrarPorCodigo(){
+  const codigo=document.getElementById('input-codigo').value.trim();
+  const erroEl=document.getElementById('acesso-codigo-erro');
+  if(!codigo){document.getElementById('input-codigo').focus();return;}
+  carregarClientes();
+  const c=clientes.find(x=>x.senha&&x.senha===codigo);
+  if(!c){
+    erroEl.style.display='block';
+    document.getElementById('input-codigo').value='';
+    document.getElementById('input-codigo').focus();
+    return;
+  }
+  erroEl.style.display='none';
+  modoAdmin=false;
+  clienteAtivo=clientes.find(x=>x.id===c.id);
+  processos=clienteAtivo.processos;
+  nivelAcesso=clienteAtivo.nivel||'total';
+  iniciarApp(false);
+}
+
+function toggleAdminBox(){document.getElementById('admin-box').classList.toggle('visivel');}
+
+function entrar(){
+  const nome=document.getElementById('input-nome').value.trim();
+  if(!nome){document.getElementById('input-nome').focus();return;}
+  modoAdmin=false; carregarClientes();
+  let c=clientes.find(x=>x.nome.toLowerCase()===nome.toLowerCase());
+  if(!c){c={id:'c'+Date.now(),nome,processos:[]};clientes.push(c);salvarClientes();}
+  clienteAtivo=clientes.find(x=>x.id===c.id);
+  processos=clienteAtivo.processos;
+  nivelAcesso=clienteAtivo.nivel||'total';
+  iniciarApp(false);
+}
+
+function entrarAdmin(){
+  const s=document.getElementById('input-senha').value;
+  if(s!==SENHA_ADMIN){alert('Senha incorreta.');return;}
+  modoAdmin=true; carregarClientes(); iniciarApp(true);
+}
+
+function sair(){
+  clienteAtivo=null; modoAdmin=false; processos=[];
+  esconder(); document.getElementById('tela-acesso').style.display='flex';
+  document.getElementById('input-nome').value='';
+  document.getElementById('input-senha').value='';
+  document.getElementById('admin-box').classList.remove('visivel');
+}
+
+function iniciarApp(admin){
+  document.getElementById('tela-acesso').style.display='none';
+  document.getElementById('topo-principal').style.display='flex';
+  document.getElementById('save-bar').style.display='flex';
+  carregarGroqKey();
+  if(admin){
+    document.getElementById('topo-label').innerHTML='<strong>Admin</strong> · SEQLIST';
+    document.getElementById('btn-exportar-html').style.display='inline-flex';
+    renderAdmin(); mostrarTela('admin');
+  } else {
+    document.getElementById('btn-exportar-html').style.display='none';
+    document.getElementById('topo-label').innerHTML=`Olá, <strong>${clienteAtivo.nome}</strong>`;
+    irParaHub();
+  }
+}
+
+function esconder(){
+  ['topo-principal','save-bar','tela-hub','tela-admin','tela-nova','tela-processo']
+    .forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
+}
+
+function mostrarTela(t){
+  ['hub','admin','nova','processo'].forEach(n=>document.getElementById('tela-'+n).style.display=n===t?'block':'none');
+}
+
+// ═══════════════════════════════
+//  ADMIN
+// ═══════════════════════════════
+function renderAdmin(){
+  document.getElementById('clientes-grid').innerHTML = clientes.length
+    ? clientes.map(c=>{
+        const ini=c.nome.trim()[0].toUpperCase();
+        const np=c.processos.length;
+        return `<div class="cliente-card" onclick="entrarComoCliente('${c.id}')">
+          <div class="cliente-av">${ini}</div>
+          <div class="cliente-nome">${c.nome}</div>
+          <div class="cliente-info">${np} processo${np!==1?'s':''}
+            ${c.senha?` · <span style="font-family:monospace;font-size:.68rem;background:var(--bg2);padding:1px 5px;border-radius:4px">${c.senha}</span>`:''}
+            ${c.nivel==='leitura'?` · <span style="font-size:.65rem;color:var(--accent2)">só leitura</span>`:''}
+          </div>
+          <div class="cliente-acoes">
+            <button class="btn-ca" title="Editar" onclick="event.stopPropagation();editarCliente('${c.id}')">✏️</button>
+            <button class="btn-ca del" onclick="event.stopPropagation();excluirCliente('${c.id}')">✕</button>
+          </div>
+        </div>`;
+      }).join('')
+    : '<div style="color:var(--texto-s);font-size:.82rem">Nenhum cliente ainda.</div>';
+
+  document.getElementById('bib-lista').innerHTML = biblioteca.length
+    ? biblioteca.map(p=>`
+      <div class="bib-item" onclick="verProcessoBib('${p.id}')" style="cursor:pointer">
+        <div class="bib-icone">${p.icone||'📋'}</div>
+        <div class="bib-info">
+          <div class="bib-nome">${p.nome}</div>
+          <div class="bib-desc">${p.descricao||''}</div>
+        </div>
+        <span class="bib-badge">${p.etapas.length} etapa${p.etapas.length!==1?'s':''}</span>
+        <div class="bib-acoes">
+          <button class="btn-bib-acao" title="Exportar JSON" onclick="event.stopPropagation();exportarProcessoBib('${p.id}')">⬇</button>
+          <button class="btn-bib-acao del" title="Remover da biblioteca" onclick="event.stopPropagation();excluirBib('${p.id}')">✕</button>
+        </div>
+      </div>`).join('')
+    : '<div class="bib-vazio">Nenhum processo na biblioteca ainda.</div>';
+
+  atualizarSaveInfo();
+}
+
+function entrarComoCliente(id){
+  const c=clientes.find(x=>x.id===id); if(!c) return;
+  clienteAtivo=c; processos=c.processos;
+  modoAdminGerenciaCliente=true; // admin está gerenciando este cliente
+  document.getElementById('topo-label').innerHTML=`<span style="font-size:.65rem;color:var(--accent3);margin-right:.3rem">admin →</span><strong>${c.nome}</strong> <button onclick="voltarAdmin()" style="margin-left:.4rem;padding:.1rem .5rem;border-radius:6px;border:1px solid var(--linha);background:var(--bg2);color:var(--texto-s);font-size:.62rem;cursor:pointer;font-family:'DM Sans',sans-serif;">← Admin</button>`;
+  irParaHub();
+}
+
+function verProcessoBib(id){
+  const p=biblioteca.find(x=>x.id===id); if(!p) return;
+  processoAtivo=p;
+  // marca modo biblioteca para salvar no lugar certo
+  processoAtivo._modoFonte='biblioteca';
+  // topo com indicador e botão voltar
+  document.getElementById('topo-label').innerHTML=
+    `<span style="font-size:.65rem;color:var(--accent2);margin-right:.3rem">biblioteca →</span><strong>${p.nome}</strong> <button onclick="voltarAdmin()" style="margin-left:.4rem;padding:.1rem .5rem;border-radius:6px;border:1px solid var(--linha);background:var(--bg2);color:var(--texto-s);font-size:.62rem;cursor:pointer;font-family:'DM Sans',sans-serif;">← Biblioteca</button>`;
+  mostrarTela('processo');
+  renderProcesso(p, true); // true = modo edição completa
+}
+
+function exportarProcessoBib(id){
+  const p=biblioteca.find(x=>x.id===id); if(!p) return;
+  const nomeProc=p.nome.replace(/\s+/g,'-').toLowerCase();
+  const agora=new Date();
+  const ts=agora.toISOString().slice(0,10);
+  const hora=agora.toTimeString().slice(0,5).replace(':','h');
+  const blob=new Blob([JSON.stringify({processo:p},null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`seqlist-${nomeProc}-admin-${ts}-${hora}.json`;
+  a.click();
+}
+
+function salvarCampoProcesso(idx, campo, valor){
+  // salva em processoAtivo e persiste no lugar certo (biblioteca ou cliente)
+  const e=processoAtivo.etapas[idx];
+  if(!e) return;
+  if(campo==='instrucao') e.instrucao=valor;
+  else if(campo==='lembrete') e.lembrete=valor||null;
+  else if(campo==='acaoTitulo'){ if(!e.acao) e.acao={titulo:'',texto:''}; e.acao.titulo=valor; }
+  else if(campo==='acaoTexto'){ if(!e.acao) e.acao={titulo:'',texto:''}; e.acao.texto=valor; }
+  _persistirProcessoAtivo();
+}
+
+function salvarNomeProcesso(valor){
+  if(!valor.trim()) return;
+  processoAtivo.nome=valor.trim();
+  _persistirProcessoAtivo();
+}
+
+function salvarDescProcesso(valor){
+  processoAtivo.descricao=valor.trim();
+  _persistirProcessoAtivo();
+}
+
+function _persistirProcessoAtivo(){
+  if(processoAtivo._modoFonte==='biblioteca') salvarBiblioteca();
+  else salvarClientes(); // cobre processos do cliente e bibCliente (ambos dentro de clienteAtivo)
+}
+
+function voltarAdmin(){
+  modoAdminGerenciaCliente=false; modoAdmin=true;
+  clienteAtivo=null; processos=[];
+  document.getElementById('topo-label').innerHTML='<strong>Admin</strong> · SEQLIST';
+  renderAdmin(); mostrarTela('admin');
+}
+
+function promoverBiblioteca(procId){
+  const p=processos.find(x=>x.id===procId); if(!p) return;
+  if(biblioteca.some(b=>b.id===procId||b.origemId===procId)){
+    alert('Este processo já está na biblioteca.'); return;
+  }
+  const copia=JSON.parse(JSON.stringify(p));
+  copia.origemId=procId; // referência de origem
+  copia.id='bib-'+Date.now();
+  biblioteca.push(copia);
+  salvarBiblioteca();
+  renderHub(); // atualiza badge "na biblioteca"
+  alert(`✓ "${p.nome}" adicionado à biblioteca!`);
+}
+
+function irParaNovaBib(){
+  // reutiliza a tela nova mas voltando para admin
+  modoNovaBib=true;
+  resetForm(); mostrarTela('nova');
+  document.querySelector('.nova-titulo').textContent='Novo processo para biblioteca';
+  document.querySelector('#tela-nova .btn-voltar').onclick=()=>{modoNovaBib=false;mostrarTela('admin');};
+}
+
+function excluirCliente(id){
+  if(!confirm('Excluir este cliente?')) return;
+  clientes=clientes.filter(c=>c.id!==id); salvarClientes(); renderAdmin();
+}
+
+function abrirModalCliente(){
+  document.getElementById('mc-titulo').textContent='Novo cliente';
+  document.getElementById('mc-id').value='';
+  document.getElementById('mc-nome').value='';
+  document.getElementById('mc-senha').value='';
+  document.getElementById('mc-nivel').value='total';
+  document.getElementById('mc-btn-salvar').textContent='Criar cliente';
+  document.getElementById('mc-procs-label').style.display='block';
+  document.getElementById('mc-procs').style.display='block';
+  document.getElementById('mc-procs').innerHTML= biblioteca.length
+    ? biblioteca.map(p=>
+        `<div class="modal-proc-item" id="mcp-${p.id}" onclick="toggleMCP('${p.id}')">
+          <div class="mpi-check"></div><span>${p.icone||'📋'} ${p.nome}</span>
+        </div>`).join('')
+    : '<div style="font-size:.78rem;color:var(--texto-s);padding:.3rem 0">Nenhum processo na biblioteca ainda.</div>';
+  document.getElementById('modal-cliente').classList.add('visivel');
+}
+
+function editarCliente(id){
+  const c=clientes.find(x=>x.id===id); if(!c) return;
+  document.getElementById('mc-titulo').textContent='Editar cliente';
+  document.getElementById('mc-id').value=c.id;
+  document.getElementById('mc-nome').value=c.nome;
+  document.getElementById('mc-senha').value=c.senha||'';
+  document.getElementById('mc-nivel').value=c.nivel||'total';
+  document.getElementById('mc-btn-salvar').textContent='Salvar alterações';
+  document.getElementById('mc-procs-label').textContent='Processos ativos do cliente';
+  document.getElementById('mc-procs-label').style.display='block';
+  document.getElementById('mc-procs').style.display='block';
+
+  // Processos já no cliente (com opção remover)
+  const procsCliente=c.processos.length
+    ? `<div style="font-size:.65rem;font-weight:600;color:var(--texto-s);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem">No cliente</div>`+
+      c.processos.map(p=>`
+        <div class="modal-proc-item sel" id="mcp-c-${p.id}" style="justify-content:space-between">
+          <div style="display:flex;align-items:center;gap:.55rem">
+            <div class="mpi-check">✓</div>
+            <span>${p.icone||'📋'} ${p.nome}</span>
+          </div>
+          <button onclick="event.stopPropagation();removerProcCliente('${c.id}','${p.id}')" style="padding:.15rem .45rem;border-radius:5px;border:1px solid var(--linha);background:var(--surface);color:var(--texto-s);font-size:.62rem;cursor:pointer">✕ remover</button>
+        </div>`).join('')
+    : '<div style="font-size:.75rem;color:var(--texto-s);padding:.2rem 0">Nenhum processo ainda.</div>';
+
+  // Processos da biblioteca ainda não carregados
+  const idsNoCliente=c.processos.map(p=>p.origemId||p.id);
+  const bibDisponivel=biblioteca.filter(b=>!idsNoCliente.some(id=>id===b.id||b.id===id));
+  const procsBib=bibDisponivel.length
+    ? `<div style="font-size:.65rem;font-weight:600;color:var(--texto-s);text-transform:uppercase;letter-spacing:.05em;margin:.6rem 0 .3rem">Adicionar da biblioteca</div>`+
+      bibDisponivel.map(p=>`
+        <div class="modal-proc-item" id="mcp-${p.id}" onclick="toggleMCP('${p.id}')">
+          <div class="mpi-check"></div><span>${p.icone||'📋'} ${p.nome}</span>
+        </div>`).join('')
+    : '';
+
+  document.getElementById('mc-procs').innerHTML=procsCliente+procsBib;
+  document.getElementById('modal-cliente').classList.add('visivel');
+}
+
+function removerProcCliente(clienteId, procId){
+  const c=clientes.find(x=>x.id===clienteId); if(!c) return;
+  if(!confirm('Remover este processo do cliente?')) return;
+  c.processos=c.processos.filter(p=>p.id!==procId);
+  salvarClientes();
+  // re-renderiza a lista dentro do modal sem fechar
+  editarCliente(clienteId);
+}
+
+function fecharModal(){document.getElementById('modal-cliente').classList.remove('visivel');}
+function toggleMCP(id){document.getElementById('mcp-'+id)?.classList.toggle('sel');}
+
+function salvarCliente(){
+  const nome=document.getElementById('mc-nome').value.trim();
+  if(!nome){alert('Digite o nome do cliente.');return;}
+  const senha=document.getElementById('mc-senha').value.trim();
+  const nivel=document.getElementById('mc-nivel').value;
+  const idExistente=document.getElementById('mc-id').value;
+
+  if(idExistente){
+    // EDIÇÃO
+    const idx=clientes.findIndex(c=>c.id===idExistente);
+    if(idx>=0){
+      clientes[idx].nome=nome;
+      clientes[idx].senha=senha;
+      clientes[idx].nivel=nivel;
+      // adiciona processos novos selecionados da biblioteca
+      const sels=[...document.querySelectorAll('.modal-proc-item.sel[id^="mcp-"]:not([id^="mcp-c-"])')]
+        .map(el=>el.id.replace('mcp-',''));
+      const novos=biblioteca.filter(p=>sels.includes(p.id))
+        .map(p=>{const c=JSON.parse(JSON.stringify(p));c.origemId=p.id;c.id=p.id+'-'+Date.now();return c;});
+      clientes[idx].processos.push(...novos);
+    }
+  } else {
+    // CRIAÇÃO
+    const sels=[...document.querySelectorAll('.modal-proc-item.sel')].map(el=>el.id.replace('mcp-',''));
+    const procs=biblioteca.filter(p=>sels.includes(p.id))
+      .map(p=>{const c=JSON.parse(JSON.stringify(p));c.id=p.id+'-'+Date.now();return c;});
+    clientes.push({id:'c'+Date.now(),nome,senha,nivel,processos:procs});
+  }
+  salvarClientes(); fecharModal(); renderAdmin();
+}
+
+// ═══════════════════════════════
+//  HUB CLIENTE
+// ═══════════════════════════════
+function irParaHub(){
+  preview=null;
+  document.getElementById('preview-box').classList.remove('visivel');
+  document.getElementById('btn-salvar-prev').classList.remove('visivel');
+  mostrarTela('hub'); renderHub();
+}
+function irParaNova(){resetForm();mostrarTela('nova');}
+function irParaProcesso(id){
+  const p=processos.find(x=>x.id===id); if(!p) return;
+  processoAtivo=p; mostrarTela('processo'); renderProcesso(p);
+}
+
+function renderHub(){
+  const grid=document.getElementById('processos-grid');
+  const vazio=document.getElementById('hub-vazio');
+  document.getElementById('hub-saudacao').innerHTML=`Olá, <span>${clienteAtivo?.nome||''}</span> 👋`;
+  if(!processos.length){grid.innerHTML='';vazio.style.display='block';}
+  else {
+    vazio.style.display='none';
+    const bibCliente=clienteAtivo.biblioteca||[];
+    grid.innerHTML=processos.map(p=>{
+      const jaNaBibFNW=biblioteca.some(b=>b.id===p.id||b.origemId===p.id);
+      const jaNaBibCliente=bibCliente.some(b=>b.origemId===p.id);
+      // botão promover para biblioteca FNW (só admin gerenciando)
+      const btnPromoverFNW=modoAdminGerenciaCliente&&!jaNaBibFNW
+        ?`<button class="btn-promover" onclick="event.stopPropagation();promoverBiblioteca('${p.id}')">📚 → FNW</button>`:'';
+      // botão salvar na biblioteca pessoal (cliente ou admin gerenciando)
+      const btnBibPessoal=!jaNaBibCliente
+        ?`<button class="btn-promover" style="border-color:var(--accent2);color:var(--accent2);background:color-mix(in srgb,var(--accent2) 8%,var(--bg))" onclick="event.stopPropagation();salvarNaBibCliente('${p.id}')">📚 Minha bib</button>`
+        :`<span class="bib-badge" style="font-size:.6rem;color:var(--accent2)">📚 salvo</span>`;
+      const badgeFNW=jaNaBibFNW?`<span class="bib-badge" style="font-size:.6rem">📚 FNW</span>`:'';
+      const podeEditar=nivelAcesso==='total'||modoAdminGerenciaCliente;
+      return `<div class="processo-card" onclick="irParaProcesso('${p.id}')">
+        <div class="pc-icon">${p.icone||'📋'}</div>
+        <div class="pc-nome">${p.nome}</div>
+        <div class="pc-desc">${p.descricao||''}</div>
+        <div class="pc-meta"><span class="pc-badge">${p.etapas.length} etapa${p.etapas.length!==1?'s':''}</span>${badgeFNW}</div>
+        ${podeEditar?`<div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.5rem">${btnBibPessoal}${btnPromoverFNW}</div>`:''}
+        <div class="pc-acoes">
+          ${podeEditar?`<button class="btn-exportar-proc" title="Exportar JSON" onclick="event.stopPropagation();exportarProcesso('${p.id}')">⬇ JSON</button>`:''}
+          ${podeEditar?`<button class="btn-pca del" onclick="event.stopPropagation();excluirProcesso('${p.id}')">✕</button>`:''}
+        </div>
+      </div>`;
+    }).join('');
+  }
+  renderBibCliente();
+  atualizarSaveInfo();
+}
+
+function renderBibCliente(){
+  const lista=document.getElementById('cliente-bib-lista');
+  if(!lista) return;
+  const bib=clienteAtivo?.biblioteca||[];
+  if(!bib.length){
+    lista.innerHTML='<div class="bib-vazio">Nenhum processo salvo ainda. Use "📚 Minha bib" nos cards acima.</div>';
+    return;
+  }
+  lista.innerHTML=bib.map(p=>`
+    <div class="bib-item" onclick="verProcessoBibCliente('${p.id}')" style="cursor:pointer">
+      <div class="bib-icone">${p.icone||'📋'}</div>
+      <div class="bib-info">
+        <div class="bib-nome">${p.nome}</div>
+        <div class="bib-desc">${p.descricao||''}</div>
+      </div>
+      <span class="bib-badge">${p.etapas.length} etapa${p.etapas.length!==1?'s':''}</span>
+      <div class="bib-acoes">
+        ${modoAdminGerenciaCliente?`<button class="btn-bib-acao" title="Puxar para biblioteca FNW" onclick="event.stopPropagation();puxarParaFNW('${p.id}')" style="color:var(--accent3);border-color:var(--accent3)">→ FNW</button>`:''}
+        <button class="btn-bib-acao" title="Exportar JSON" onclick="event.stopPropagation();exportarProcessoBibCliente('${p.id}')">⬇</button>
+        <button class="btn-bib-acao del" title="Remover" onclick="event.stopPropagation();excluirBibCliente('${p.id}')">✕</button>
+      </div>
+    </div>`).join('');
+}
+
+function salvarNaBibCliente(procId){
+  const p=processos.find(x=>x.id===procId); if(!p) return;
+  if(!clienteAtivo.biblioteca) clienteAtivo.biblioteca=[];
+  if(clienteAtivo.biblioteca.some(b=>b.origemId===procId)){
+    alert('Este processo já está na sua biblioteca.'); return;
+  }
+  const copia=JSON.parse(JSON.stringify(p));
+  copia.origemId=procId;
+  copia.id='cb-'+Date.now();
+  clienteAtivo.biblioteca.push(copia);
+  salvarClientes(); renderHub();
+}
+
+function irParaNovaBibCliente(){
+  modoNovaBibCliente=true;
+  resetForm(); mostrarTela('nova');
+  document.querySelector('.nova-titulo').textContent='Salvar na minha biblioteca';
+  document.querySelector('#tela-nova .btn-voltar').onclick=()=>{modoNovaBibCliente=false;irParaHub();};
+}
+
+function verProcessoBibCliente(id){
+  const p=(clienteAtivo.biblioteca||[]).find(x=>x.id===id); if(!p) return;
+  processoAtivo=p;
+  processoAtivo._modoFonte='bibCliente';
+  document.getElementById('topo-label').innerHTML=
+    `${modoAdminGerenciaCliente?`<span style="font-size:.65rem;color:var(--accent3);margin-right:.3rem">admin →</span>`:''}` +
+    `<strong>${clienteAtivo.nome}</strong> · bib pessoal <button onclick="irParaHub()" style="margin-left:.4rem;padding:.1rem .5rem;border-radius:6px;border:1px solid var(--linha);background:var(--bg2);color:var(--texto-s);font-size:.62rem;cursor:pointer;font-family:'DM Sans',sans-serif;">← Hub</button>`;
+  mostrarTela('processo');
+  renderProcesso(p, true);
+}
+
+function excluirBibCliente(id){
+  if(!confirm('Remover da sua biblioteca?')) return;
+  clienteAtivo.biblioteca=(clienteAtivo.biblioteca||[]).filter(b=>b.id!==id);
+  salvarClientes(); renderBibCliente();
+}
+
+function puxarParaFNW(id){
+  // admin puxa processo da biblioteca do cliente para a biblioteca FNW
+  const p=(clienteAtivo.biblioteca||[]).find(x=>x.id===id); if(!p) return;
+  if(biblioteca.some(b=>b.origemId===id||b.id===id)){alert('Já está na biblioteca FNW.');return;}
+  const copia=JSON.parse(JSON.stringify(p));
+  copia.origemId=id;
+  copia.id='bib-'+Date.now();
+  biblioteca.push(copia); salvarBiblioteca();
+  renderBibCliente();
+  alert(`✓ "${p.nome}" adicionado à biblioteca FNW!`);
+}
+
+function exportarProcessoBibCliente(id){
+  const p=(clienteAtivo.biblioteca||[]).find(x=>x.id===id); if(!p) return;
+  const autor=clienteAtivo.nome.replace(/\s+/g,'-').toLowerCase();
+  const nomeProc=p.nome.replace(/\s+/g,'-').toLowerCase();
+  const agora=new Date();
+  const ts=agora.toISOString().slice(0,10);
+  const hora=agora.toTimeString().slice(0,5).replace(':','h');
+  const blob=new Blob([JSON.stringify({processo:p},null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`seqlist-${nomeProc}-${autor}-${ts}-${hora}.json`;
+  a.click();
+}
+
+function excluirProcesso(id){
+  if(!confirm('Excluir este processo?')) return;
+  clienteAtivo.processos=clienteAtivo.processos.filter(p=>p.id!==id);
+  processos=clienteAtivo.processos; salvarClientes(); renderHub();
+}
+
+// ═══════════════════════════════
+//  NOVA ATIVIDADE
+// ═══════════════════════════════
+function setModoNova(m){
+  ['ia','form','json','texto'].forEach(n=>{
+    document.getElementById('modo-'+n).style.display=n===m?'block':'none';
+  });
+  ['tab-ia','tab-form','tab-json','tab-texto'].forEach(id=>{
+    document.getElementById(id)?.classList.toggle('ativo',id==='tab-'+m);
+  });
+  preview=null;
+  document.getElementById('preview-box').classList.remove('visivel');
+  document.getElementById('btn-salvar-prev').classList.remove('visivel');
+}
+
+// ── Export / Import JSON de processo individual ──
+function exportarProcesso(procId){
+  const p=processos.find(x=>x.id===procId); if(!p) return;
+  const autor=(clienteAtivo?.nome||'usuario').replace(/\s+/g,'-').toLowerCase();
+  const nomeProc=p.nome.replace(/\s+/g,'-').toLowerCase();
+  const agora=new Date();
+  const ts=agora.toISOString().slice(0,10);
+  const hora=agora.toTimeString().slice(0,5).replace(':','h');
+  const blob=new Blob([JSON.stringify({processo:p},null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`seqlist-${nomeProc}-${autor}-${ts}-${hora}.json`;
+  a.click();
+}
+
+let _jsonImportado=null;
+
+function onDropJSON(event){
+  event.preventDefault();
+  document.getElementById('json-drop-area').classList.remove('drag-over');
+  const file=event.dataTransfer.files[0];
+  if(file) lerArquivoJSON(file);
+}
+function onSelectJSON(event){
+  const file=event.target.files[0];
+  if(file) lerArquivoJSON(file);
+  event.target.value='';
+}
+function lerArquivoJSON(file){
+  const erroEl=document.getElementById('json-erro');
+  erroEl.style.display='none';
+  document.getElementById('json-preview-wrap').style.display='none';
+  _jsonImportado=null;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const data=JSON.parse(e.target.result);
+      // aceita {processo:...} ou o objeto direto
+      const proc=data.processo||data;
+      if(!proc.nome||!Array.isArray(proc.etapas)) throw new Error('Arquivo não parece ser um processo válido.');
+      _jsonImportado=proc;
+      mostrarPreviewJSON(proc);
+    }catch(err){
+      erroEl.style.display='block';
+      erroEl.textContent='❌ '+err.message;
+    }
+  };
+  reader.readAsText(file);
+}
+function mostrarPreviewJSON(proc){
+  document.getElementById('json-preview-nome').textContent=(proc.icone||'📋')+' '+proc.nome;
+  document.getElementById('json-preview-meta').textContent=`${proc.etapas.length} etapa${proc.etapas.length!==1?'s':''} · ${proc.descricao||''}`;
+  document.getElementById('json-preview-etapas').innerHTML=proc.etapas.map((e,i)=>`
+    <div class="json-prev-et">
+      <div class="json-prev-num">${i+1}</div>
+      <span><strong>${e.titulo}</strong>${e.ferramenta?' · '+e.ferramenta:''}</span>
+    </div>`).join('');
+  document.getElementById('json-preview-wrap').style.display='block';
+}
+function limparJSONImport(){
+  _jsonImportado=null;
+  document.getElementById('json-preview-wrap').style.display='none';
+  document.getElementById('json-erro').style.display='none';
+}
+function salvarJSONImport(){
+  if(!_jsonImportado){alert('Nenhum arquivo carregado.');return;}
+  const p=JSON.parse(JSON.stringify(_jsonImportado));
+  if(modoNovaBib){
+    p.id='bib-'+Date.now();
+    biblioteca.push(p); salvarBiblioteca();
+    modoNovaBib=false; mostrarTela('admin'); renderAdmin();
+  } else if(modoNovaBibCliente){
+    if(!clienteAtivo.biblioteca) clienteAtivo.biblioteca=[];
+    p.id='cb-'+Date.now();
+    clienteAtivo.biblioteca.push(p);
+    salvarClientes(); modoNovaBibCliente=false; irParaHub();
+  } else {
+    p.id='p'+Date.now();
+    clienteAtivo.processos.push(p); processos=clienteAtivo.processos;
+    salvarClientes(); irParaHub();
+  }
+  limparJSONImport();
+}
+// ── Gerar processo a partir de texto colado ──
+async function gerarDoTexto(){
+  const texto=document.getElementById('texto-colado').value.trim();
+  if(!texto){alert('Cole um texto primeiro.');return;}
+  if(!getGroqKey()){alert('Configure a Groq API Key no topo da página.');return;}
+  const nomeHint=document.getElementById('texto-nome').value.trim();
+  const btn=document.getElementById('btn-texto');
+  const st=document.getElementById('texto-status');
+  btn.disabled=true; btn.textContent='⏳ Interpretando...';
+  st.classList.add('visivel'); st.textContent='Analisando o texto e detectando etapas...';
+
+  const prompt=`Você é um especialista em processos operacionais. Analise o texto abaixo e extraia um processo estruturado em etapas.
+
+O texto pode estar em qualquer formato: SOP, e-mail, lista markdown, anotações livres, procedimento, roteiro, etc.
+Detecte o formato automaticamente e extraia TODAS as etapas mencionadas — não limite o número.
+
+${nomeHint?`O usuário quer nomear o processo como: "${nomeHint}"`:''} 
+
+TEXTO:
+"""
+${texto}
+"""
+
+Responda APENAS com JSON válido neste formato, sem explicações:
+{
+  "icone": "emoji representativo do processo",
+  "nome": "${nomeHint||'nome sugerido para o processo'}",
+  "descricao": "uma linha resumindo o processo",
+  "etapas": [
+    {
+      "titulo": "título curto da etapa",
+      "ferramenta": "deepseek|gemini|notion|notebooklm|docs|word|sheets|null",
+      "url": "URL mencionada no texto para esta etapa, ou null",
+      "instrucao": "instrução clara do que fazer nesta etapa (1-3 frases)",
+      "acao": {"titulo": "título da ação principal", "texto": "texto exato ou comando a executar"} ou null,
+      "lembrete": "observação importante extraída do texto, ou null"
+    }
+  ]
+}
+
+Extraia quantas etapas existirem no texto. Se o texto mencionar URLs, ferramentas ou sistemas específicos, inclua-os. Seja fiel ao conteúdo original.`;
+
+  try{
+    const resp=await chamarGroq(prompt);
+    const p=JSON.parse(resp.replace(/```json|```/g,'').trim());
+    p.id='p'+Date.now();
+    preview=p;
+    mostrarPreview(p);
+    st.textContent=`✓ ${p.etapas.length} etapa(s) extraída(s)! Revise e salve.`;
+  }catch(err){
+    st.textContent='❌ Erro: '+err.message;
+  }finally{
+    btn.disabled=false;
+    btn.textContent='📋 Interpretar e montar fichas';
+  }
+}
+
+function fillEx(el){document.getElementById('ia-desc').value=el.textContent;}
+
+async function gerarIA(){
+  const desc=document.getElementById('ia-desc').value.trim();
+  if(!desc){alert('Descreva o processo primeiro.');return;}
+  if(!getGroqKey()){alert('Configure a Groq API Key na barra superior.');return;}
+  document.getElementById('btn-gerar').disabled=true;
+  const st=document.getElementById('ia-status');
+  st.classList.add('visivel');st.textContent='⏳ Gerando com Groq...';
+  const prompt=`Você é um assistente de produtividade. Com base na descrição abaixo, gere um processo de trabalho estruturado em fichas.
+
+Descrição: "${desc}"
+
+Responda APENAS com JSON válido neste formato, sem explicações:
+{
+  "icone":"emoji",
+  "nome":"Nome curto do processo",
+  "descricao":"Uma linha descrevendo",
+  "etapas":[
+    {
+      "titulo":"Título da etapa",
+      "ferramenta":"deepseek|gemini|notion|notebooklm|docs|word|sheets|null",
+      "url":"URL ou null",
+      "instrucao":"O que fazer (1-2 frases)",
+      "acao":{"titulo":"Título da ação","texto":"Texto ou ação"},
+      "lembrete":"Dica ou null"
+    }
+  ]
+}
+Gere 3-7 etapas. Seja prático e específico.`;
+  try{
+    const r=await chamarGroq(prompt);
+    const p=JSON.parse(r.replace(/```json|```/g,'').trim());
+    p.id='p'+Date.now(); preview=p; mostrarPreview(p);
+    st.textContent='✓ Processo gerado! Revise e salve.';
+  }catch(e){st.textContent='❌ Erro: '+e.message;}
+  finally{document.getElementById('btn-gerar').disabled=false;}
+}
+
+function mostrarPreview(p){
+  document.getElementById('preview-nome').textContent=(p.icone||'')+' '+p.nome;
+  document.getElementById('preview-etapas').innerHTML=(p.etapas||[]).map((e,i)=>{
+    const cor=e.ferramenta?(FCOR[e.ferramenta]||'#7A6A62'):'#7A6A62';
+    const badge=e.ferramenta?`<span class="preview-ew" style="background:${cor}22;color:${cor}">${e.ferramenta}</span>`:'';
+    return `<div class="preview-etapa"><div class="preview-num">${i+1}</div>
+      <div><span class="preview-en">${e.titulo}</span>${badge}<br>
+      <span style="font-size:.74rem">${e.instrucao||''}</span></div></div>`;
+  }).join('');
+  document.getElementById('preview-box').classList.add('visivel');
+  document.getElementById('btn-salvar-prev').classList.add('visivel');
+}
+
+function salvarPreview(){
+  if(!preview) return;
+  if(modoNovaBib){
+    preview.id='bib-'+Date.now();
+    biblioteca.push(preview); salvarBiblioteca();
+    modoNovaBib=false; mostrarTela('admin'); renderAdmin();
+  } else if(modoNovaBibCliente){
+    if(!clienteAtivo.biblioteca) clienteAtivo.biblioteca=[];
+    preview.id='cb-'+Date.now();
+    clienteAtivo.biblioteca.push(preview);
+    salvarClientes(); modoNovaBibCliente=false; irParaHub();
+  } else {
+    clienteAtivo.processos.push(preview); processos=clienteAtivo.processos;
+    salvarClientes(); irParaHub();
+  }
+}
+
+function resetForm(){
+  document.getElementById('ia-desc').value='';
+  document.getElementById('ia-status').classList.remove('visivel');
+  document.getElementById('btn-gerar').disabled=false;
+  ['f-icone','f-nome','f-desc'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('etapas-lista').innerHTML='';
+  efCount=0; addEF();addEF();addEF(); setModoNova('ia');
+  preview=null; _jsonImportado=null; modoNovaBibCliente=false;
+  const tc=document.getElementById('texto-colado'); if(tc) tc.value='';
+  const tn=document.getElementById('texto-nome'); if(tn) tn.value='';
+  const ts=document.getElementById('texto-status'); if(ts) ts.classList.remove('visivel');
+  document.getElementById('json-preview-wrap').style.display='none';
+  document.getElementById('json-erro').style.display='none';
+  document.getElementById('preview-box').classList.remove('visivel');
+  document.getElementById('btn-salvar-prev').classList.remove('visivel');
+}
+function addEF(){
+  efCount++;const n=efCount;
+  const d=document.createElement('div');d.className='ef-item';d.id='ef-'+n;
+  d.innerHTML=`<div class="ef-num">Etapa ${n}<button class="btn-rem-ef" onclick="remEF(${n})">✕ Remover</button></div>
+    <div class="ef-row">
+      <div><label class="form-label">Título</label><input class="form-input" id="eft-${n}" placeholder="Ex: Gerar insumo"></div>
+      <div><label class="form-label">Ferramenta</label>
+        <select class="form-select" id="eff-${n}">
+          <option value="">— nenhuma —</option>
+          <option value="deepseek">DeepSeek</option><option value="gemini">Gemini</option>
+          <option value="notebooklm">Notebook LM</option><option value="docs">Google Docs</option>
+          <option value="word">Word</option><option value="sheets">Google Sheets</option>
+          <option value="notion">Notion</option>
+        </select>
+      </div>
+    </div>
+    <div><label class="form-label">URL (opcional)</label><input class="form-input" id="efu-${n}" placeholder="https://..."></div>
+    <div style="margin-top:.42rem"><label class="form-label">Instrução</label><textarea class="form-textarea" id="efi-${n}" placeholder="O que fazer nessa etapa..."></textarea></div>`;
+  document.getElementById('etapas-lista').appendChild(d);
+}
+function remEF(n){document.getElementById('ef-'+n)?.remove();}
+function salvarForm(){
+  const nome=document.getElementById('f-nome').value.trim();
+  if(!nome){alert('Preencha o nome do processo.');return;}
+  const etapas=[];
+  document.querySelectorAll('.ef-item').forEach(el=>{
+    const id=el.id.replace('ef-','');
+    const t=document.getElementById('eft-'+id)?.value.trim(); if(!t) return;
+    etapas.push({titulo:t,ferramenta:document.getElementById('eff-'+id)?.value||null,url:document.getElementById('efu-'+id)?.value.trim()||null,instrucao:document.getElementById('efi-'+id)?.value.trim()||'',acao:null,lembrete:null});
+  });
+  if(!etapas.length){alert('Adicione ao menos uma etapa.');return;}
+  const p={id:'p'+Date.now(),icone:document.getElementById('f-icone').value||'📋',nome,descricao:document.getElementById('f-desc').value.trim(),etapas};
+  if(modoNovaBib){
+    p.id='bib-'+Date.now();
+    biblioteca.push(p); salvarBiblioteca();
+    modoNovaBib=false; mostrarTela('admin'); renderAdmin();
+  } else if(modoNovaBibCliente){
+    if(!clienteAtivo.biblioteca) clienteAtivo.biblioteca=[];
+    p.id='cb-'+Date.now();
+    clienteAtivo.biblioteca.push(p);
+    salvarClientes(); modoNovaBibCliente=false; irParaHub();
+  } else {
+    clienteAtivo.processos.push(p); processos=clienteAtivo.processos;
+    salvarClientes(); irParaHub();
+  }
+}
+
+// ═══════════════════════════════
+//  RENDER PROCESSO
+// ═══════════════════════════════
+function renderProcesso(p, modoEdicao=false){
+  // nome e descrição editáveis quando em modo edição
+  const nomeEl=document.getElementById('proc-nome');
+  const descEl=document.getElementById('proc-desc');
+  if(modoEdicao){
+    nomeEl.contentEditable='true';
+    nomeEl.classList.add('editable');
+    nomeEl.onblur=()=>salvarNomeProcesso(nomeEl.innerText);
+    nomeEl.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();nomeEl.blur();}};
+    descEl.contentEditable='true';
+    descEl.classList.add('editable');
+    descEl.onblur=()=>salvarDescProcesso(descEl.innerText);
+  } else {
+    nomeEl.contentEditable='false';
+    nomeEl.classList.remove('editable');
+    descEl.contentEditable='false';
+    descEl.classList.remove('editable');
+  }
+  nomeEl.textContent=(p.icone||'')+' '+p.nome;
+  descEl.textContent=p.descricao||'';
+  const fu=[...new Set((p.etapas||[]).filter(e=>e.ferramenta&&e.url).map(e=>e.ferramenta))];
+  document.getElementById('proc-ferr').innerHTML=fu.map(f=>{
+    const info=FMAP[f]||{cls:'gen',label:f};
+    const et=p.etapas.find(e=>e.ferramenta===f);
+    return `<button class="ferr-btn ${info.cls}" onclick="popup('${f}','${et.url}')"><span class="dot"></span>${info.label}</button>`;
+  }).join('');
+  document.getElementById('proc-tl').innerHTML=(p.etapas||[]).map((e,i)=>{
+    const n=i+1,lb=e.titulo.split(' ').slice(0,2).join(' ');
+    return `${i>0?`<div class="tl-linha" id="tll-${n}"></div>`:''}
+      <div class="tl-item"><div class="tl-inner">
+        <button class="tl-btn ${n===1?'ativa':''}" id="tl-${n}" onclick="goEtapa(${n})">${n}</button>
+        <div class="tl-label">${lb}</div>
+      </div></div>`;
+  }).join('');
+  document.getElementById('proc-etapas').innerHTML=(p.etapas||[]).map((e,i)=>{
+    const n=i+1, ferr=e.ferramenta?(FMAP[e.ferramenta]||{cls:'gen',label:e.ferramenta}):null;
+    const label=e.labelCustom||(ferr?ferr.label:e.ferramenta)||'Link';
+    const cls=ferr?ferr.cls:'gen';
+    // botão aparece sempre que tiver URL, mesmo sem ferramenta mapeada
+    const btnF=e.url?`<button class="btn-abrir ${cls}" onclick="popup('${e.ferramenta||'gen'}','${e.url}')">↗ Abrir ${label}</button>`:'';
+    const urlAtual=e.url||'';
+    const temHist=(e._hist||[]).length>0;
+
+    // instrução: sempre editável inline
+    const instrucaoHTML=`<div class="editable campo-instrucao" contenteditable="true"
+      onblur="salvarCampoProcesso(${i},'instrucao',this.innerText)"
+      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();this.blur();}"
+      title="Clique para editar"
+    >${e.instrucao||''}</div>`;
+
+    // ação editável
+    const acaoHTML=e.acao?`<div class="acao">
+      <div class="editable" contenteditable="true" style="font-size:.63rem;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);font-weight:600;margin-bottom:.2rem"
+        onblur="salvarCampoProcesso(${i},'acaoTitulo',this.innerText)"
+        onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur();}"
+      >${e.acao.titulo}</div>
+      <div class="editable" contenteditable="true"
+        onblur="salvarCampoProcesso(${i},'acaoTexto',this.innerText)"
+        onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();this.blur();}"
+      >${e.acao.texto}</div>
+    </div>`:'';
+
+    // lembrete editável
+    const lembreteHTML=e.lembrete?`<div class="lembrete editable" contenteditable="true"
+      onblur="salvarCampoProcesso(${i},'lembrete',this.innerText)"
+      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();this.blur();}"
+    >${e.lembrete}</div>`:'';
+
+        const podeEditarFicha=nivelAcesso==='total'||modoAdminGerenciaCliente||processoAtivo._modoFonte==='biblioteca';
+        return `<div class="etapa${n===1?' ativa':''}" id="et-${n}">
+      <div class="etapa-header">
+        <div class="numero"><span class="numero-num">${n}</span><span class="numero-check">✓</span></div>
+        <div class="etapa-titulo${podeEditarFicha?' editable':''}" ${podeEditarFicha?`contenteditable="true" onblur="salvarTituloEtapa(${i}, this.innerText)" onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur();}"`:''}
+        >${e.titulo}</div>
+        ${e.ferramenta?`<span class="onde ${e.ferramenta}">${ferr?ferr.label:e.ferramenta}</span>`:''}
+        ${podeEditarFicha?`<div class="etapa-ia-actions">
+          <button class="btn-ia-ficha" title="Editar com IA" onclick="toggleIAFicha(${i})">✨</button>
+          <button class="btn-hist-ficha" title="Histórico de versões" onclick="toggleHistFicha(${i})" style="${temHist?'opacity:1;border-color:var(--accent3);color:var(--accent3)':''}">↩</button>
+          <button class="btn-editar-etapa" title="Editar link" onclick="toggleUrlEdit(${i}, this)">🔗</button>
+        </div>`:''}
+      </div>
+
+      <div class="ia-ficha-panel" id="ia-panel-${i}">
+        <div class="ia-ficha-instrucao">
+          <textarea id="ia-instr-${i}" placeholder="Ex: simplifica o texto, adiciona um exemplo, muda o tom..."></textarea>
+          <button class="btn-ia-run" id="ia-run-${i}" onclick="rodarIAFicha(${i})">✨ Gerar</button>
+        </div>
+        <div class="ia-ficha-preview" id="ia-prev-${i}">
+          <div class="ia-ficha-preview-label">Sugestão da IA</div>
+          <div class="ia-ficha-preview-texto" id="ia-prev-texto-${i}"></div>
+          <div class="ia-ficha-acoes">
+            <button class="btn-aplicar" onclick="aplicarIAFicha(${i})">✓ Aplicar</button>
+            <button class="btn-descartar" onclick="descartarIAFicha(${i})">Descartar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="hist-panel" id="hist-panel-${i}">
+        <div class="hist-header">
+          <span>↩ Histórico de versões</span>
+          <button class="btn-descartar" style="padding:.18rem .5rem;font-size:.62rem" onclick="toggleHistFicha(${i})">Fechar</button>
+        </div>
+        <div class="hist-lista" id="hist-lista-${i}"></div>
+      </div>
+
+      <div class="url-edit-wrap" id="url-wrap-${i}" style="display:none">
+        <div class="url-edit-row">
+          <span class="url-edit-label">Título</span>
+          <input class="url-edit-input" id="titulo-input-${i}" value="${label}" placeholder="Ex: Gemini"
+            onblur="salvarTituloLink(${i})" onkeydown="if(event.key==='Enter')this.blur()">
+        </div>
+        <div class="url-edit-row">
+          <span class="url-edit-label">URL</span>
+          <input class="url-edit-input" id="url-input-${i}" value="${urlAtual}" placeholder="https://..."
+            onblur="salvarUrlEtapa(${i})" onkeydown="if(event.key==='Enter')this.blur()">
+        </div>
+      </div>
+
+      <div class="etapa-corpo" id="corpo-${i}">${instrucaoHTML}${btnF}${acaoHTML}${lembreteHTML}</div>
+      <button class="btn-check" onclick="concluir(${n})">Marcar como feito ✓</button>
+    </div>`;
+  }).join('');
+  document.getElementById('celebracao').classList.remove('visivel');
+  syncTL();
+}
+
+function concluir(n){
+  const el=document.getElementById('et-'+n); el.classList.add('concluida');
+  const btn=el.querySelector('.btn-check');btn.textContent='✓ Feito';btn.disabled=true;
+  syncTL();
+  const prox=document.querySelector('#proc-etapas .etapa:not(.concluida)');
+  if(prox) setTimeout(()=>{
+    const topo=document.getElementById('topo-principal');
+    const sticky=document.querySelector('.proc-sticky');
+    const offset=(topo?topo.getBoundingClientRect().height:49)+(sticky?sticky.getBoundingClientRect().height:90)+8;
+    const y=prox.getBoundingClientRect().top+window.scrollY-offset;
+    window.scrollTo({top:y,behavior:'smooth'});
+  },200);
+  if(document.querySelectorAll('#proc-etapas .etapa.concluida').length===processoAtivo.etapas.length)
+    document.getElementById('celebracao').classList.add('visivel');
+}
+
+function syncTL(){
+  const tot=processoAtivo?.etapas?.length||0;
+  for(let i=1;i<=tot;i++){
+    const tl=document.getElementById('tl-'+i),et=document.getElementById('et-'+i),ln=document.getElementById('tll-'+i);
+    if(!tl||!et) continue;
+    if(et.classList.contains('concluida')){tl.classList.remove('ativa');tl.classList.add('feita');tl.textContent='✓';if(ln)ln.classList.add('feita');}
+    else{tl.classList.remove('feita');tl.textContent=i;if(ln)ln.classList.remove('feita');}
+  }
+  document.querySelectorAll('#proc-etapas .etapa').forEach(e=>e.classList.remove('ativa'));
+  document.querySelectorAll('.tl-btn').forEach(b=>b.classList.remove('ativa'));
+  const prox=document.querySelector('#proc-etapas .etapa:not(.concluida)');
+  if(prox){prox.classList.add('ativa');const idx=prox.id.split('-')[1];document.getElementById('tl-'+idx)?.classList.add('ativa');}
+}
+function goEtapa(n){
+  const el=document.getElementById('et-'+n); if(!el) return;
+  // calcula altura total dos elementos sticky (topo + proc-sticky)
+  const topo=document.getElementById('topo-principal');
+  const sticky=document.querySelector('.proc-sticky');
+  const offset=(topo?topo.getBoundingClientRect().height:49)+(sticky?sticky.getBoundingClientRect().height:90)+8;
+  const y=el.getBoundingClientRect().top+window.scrollY-offset;
+  window.scrollTo({top:y,behavior:'smooth'});
+}
+function resetProc(){
+  document.querySelectorAll('#proc-etapas .etapa').forEach(el=>{
+    el.classList.remove('concluida');const btn=el.querySelector('.btn-check');
+    if(btn){btn.textContent='Marcar como feito ✓';btn.disabled=false;}
+  });
+  document.getElementById('celebracao').classList.remove('visivel');
+  syncTL(); window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ═══════════════════════════════
+//  IA POR FICHA
+// ═══════════════════════════════
+function toggleIAFicha(idx){
+  const panel=document.getElementById('ia-panel-'+idx);
+  const aberto=panel.classList.toggle('aberto');
+  if(aberto){
+    // fecha histórico se estiver aberto
+    document.getElementById('hist-panel-'+idx)?.classList.remove('aberto');
+    document.getElementById('ia-instr-'+idx)?.focus();
+  }
+  // fecha preview ao reabrir
+  document.getElementById('ia-prev-'+idx)?.classList.remove('visivel');
+}
+
+async function rodarIAFicha(idx){
+  const instrucao=document.getElementById('ia-instr-'+idx)?.value.trim();
+  if(!instrucao){alert('Descreva o que quer mudar nessa etapa.');return;}
+  if(!getGroqKey()){alert('Configure a Groq API Key no topo da página.');return;}
+  const e=processoAtivo.etapas[idx];
+  const btn=document.getElementById('ia-run-'+idx);
+  btn.disabled=true; btn.textContent='⏳';
+  const prompt=`Você é um assistente de produtividade. Reescreva a etapa abaixo seguindo a instrução do usuário.
+
+Etapa atual:
+Título: ${e.titulo}
+Instrução: ${e.instrucao||''}
+${e.acao?`Ação: ${e.acao.titulo} — ${e.acao.texto}`:''}
+${e.lembrete?`Lembrete: ${e.lembrete}`:''}
+
+Instrução do usuário: "${instrucao}"
+
+Responda APENAS com JSON válido neste formato, sem explicações:
+{
+  "instrucao": "nova instrução principal da etapa (1-3 frases)",
+  "acao": {"titulo": "título da ação", "texto": "texto da ação"} ou null,
+  "lembrete": "novo lembrete" ou null
+}`;
+  try{
+    const resp=await chamarGroq(prompt);
+    const novo=JSON.parse(resp.replace(/\`\`\`json|\`\`\`/g,'').trim());
+    // guarda no preview
+    const prevEl=document.getElementById('ia-prev-'+idx);
+    const prevTexto=document.getElementById('ia-prev-texto-'+idx);
+    prevTexto.textContent=[
+      novo.instrucao||'',
+      novo.acao?`\n→ ${novo.acao.titulo}: ${novo.acao.texto}`:'',
+      novo.lembrete?`\n💡 ${novo.lembrete}`:''
+    ].join('').trim();
+    prevEl._novoDado=novo;
+    prevEl.classList.add('visivel');
+  }catch(err){alert('Erro: '+err.message);}
+  finally{btn.disabled=false;btn.textContent='✨ Gerar';}
+}
+
+function aplicarIAFicha(idx){
+  const prevEl=document.getElementById('ia-prev-'+idx);
+  const novo=prevEl._novoDado; if(!novo) return;
+  const e=processoAtivo.etapas[idx];
+  // salva no histórico (máx 3)
+  if(!e._hist) e._hist=[];
+  e._hist.unshift({
+    ts: Date.now(),
+    instrucao: e.instrucao,
+    acao: e.acao ? {...e.acao} : null,
+    lembrete: e.lembrete
+  });
+  if(e._hist.length>3) e._hist.pop();
+  // aplica
+  e.instrucao=novo.instrucao||e.instrucao;
+  if(novo.acao!==undefined) e.acao=novo.acao;
+  if(novo.lembrete!==undefined) e.lembrete=novo.lembrete;
+  salvarClientes();
+  // re-renderiza o corpo da ficha
+  _reRenderCorpo(idx);
+  // fecha painéis
+  document.getElementById('ia-panel-'+idx)?.classList.remove('aberto');
+  prevEl.classList.remove('visivel');
+  // atualiza ícone histórico
+  const btnHist=document.querySelector(`#et-${idx+1} .btn-hist-ficha`);
+  if(btnHist){btnHist.style.opacity='1';btnHist.style.borderColor='var(--accent3)';btnHist.style.color='var(--accent3)';}
+}
+
+function descartarIAFicha(idx){
+  document.getElementById('ia-prev-'+idx)?.classList.remove('visivel');
+  document.getElementById('ia-instr-'+idx).value='';
+}
+
+function _reRenderCorpo(idx){
+  const e=processoAtivo.etapas[idx];
+  const ferr=e.ferramenta?(FMAP[e.ferramenta]||{cls:'gen',label:e.ferramenta}):null;
+  const label=e.labelCustom||(ferr?ferr.label:e.ferramenta)||'Link';
+  const cls=ferr?ferr.cls:'gen';
+  const btnF=e.url?`<button class="btn-abrir ${cls}" onclick="popup('${e.ferramenta||'gen'}','${e.url}')">↗ Abrir ${label}</button>`:'';
+  const instrucaoHTML=`<div class="editable campo-instrucao" contenteditable="true"
+    onblur="salvarCampoProcesso(${idx},'instrucao',this.innerText)"
+    onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();this.blur();}"
+  >${e.instrucao||''}</div>`;
+  const acaoHTML=e.acao?`<div class="acao">
+    <div class="editable" contenteditable="true" style="font-size:.63rem;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);font-weight:600;margin-bottom:.2rem"
+      onblur="salvarCampoProcesso(${idx},'acaoTitulo',this.innerText)"
+      onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur();}"
+    >${e.acao.titulo}</div>
+    <div class="editable" contenteditable="true"
+      onblur="salvarCampoProcesso(${idx},'acaoTexto',this.innerText)"
+      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();this.blur();}"
+    >${e.acao.texto}</div>
+  </div>`:'';
+  const lembreteHTML=e.lembrete?`<div class="lembrete editable" contenteditable="true"
+    onblur="salvarCampoProcesso(${idx},'lembrete',this.innerText)"
+    onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();this.blur();}"
+  >${e.lembrete}</div>`:'';
+  const corpo=document.getElementById('corpo-'+idx);
+  if(corpo) corpo.innerHTML=`${instrucaoHTML}${btnF}${acaoHTML}${lembreteHTML}`;
+}
+
+// ═══════════════════════════════
+//  HISTÓRICO POR FICHA
+// ═══════════════════════════════
+function toggleHistFicha(idx){
+  const panel=document.getElementById('hist-panel-'+idx);
+  const aberto=panel.classList.toggle('aberto');
+  if(aberto){
+    document.getElementById('ia-panel-'+idx)?.classList.remove('aberto');
+    renderHistFicha(idx);
+  }
+}
+
+function renderHistFicha(idx){
+  const e=processoAtivo.etapas[idx];
+  const lista=document.getElementById('hist-lista-'+idx);
+  if(!e._hist||!e._hist.length){
+    lista.innerHTML='<div style="padding:.6rem .75rem;font-size:.75rem;color:var(--texto-s)">Nenhuma versão anterior ainda.</div>';
+    return;
+  }
+  lista.innerHTML=e._hist.map((v,vi)=>{
+    const data=new Date(v.ts).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+    const texto=[v.instrucao||'',v.acao?`→ ${v.acao.titulo}`:'' ,v.lembrete?`💡 ${v.lembrete}`:''].filter(Boolean).join(' · ');
+    return `<div class="hist-item" onclick="restaurarHist(${idx},${vi})">
+      <div class="hist-item-label">${data}</div>
+      <div class="hist-item-texto">${texto}</div>
+      <div class="hist-item-btn">↩ Restaurar esta versão</div>
+    </div>`;
+  }).join('');
+}
+
+function restaurarHist(idx, vi){
+  if(!confirm('Restaurar esta versão? A versão atual será salva no histórico.')) return;
+  const e=processoAtivo.etapas[idx];
+  const versao=e._hist[vi];
+  // salva atual no histórico antes de restaurar
+  e._hist.unshift({ts:Date.now(),instrucao:e.instrucao,acao:e.acao?{...e.acao}:null,lembrete:e.lembrete});
+  // remove a versão restaurada do histórico e mantém máx 3
+  e._hist.splice(vi+1,1);
+  if(e._hist.length>3) e._hist.pop();
+  // restaura
+  e.instrucao=versao.instrucao;
+  e.acao=versao.acao;
+  e.lembrete=versao.lembrete;
+  salvarClientes();
+  _reRenderCorpo(idx);
+  toggleHistFicha(idx);
+}
+
+// ═══════════════════════════════
+//  IA PROCESSO INTEIRO
+// ═══════════════════════════════
+function toggleIAProcesso(){
+  document.getElementById('proc-ia-wrap').classList.toggle('aberto');
+  document.getElementById('proc-ia-sugestoes').innerHTML='';
+  document.getElementById('proc-ia-status').style.display='none';
+}
+
+async function analisarProcessoIA(){
+  const instrucao=document.getElementById('proc-ia-instrucao').value.trim();
+  if(!instrucao){alert('Descreva o que quer melhorar no processo.');return;}
+  if(!getGroqKey()){alert('Configure a Groq API Key no topo da página.');return;}
+  const btn=document.getElementById('btn-ia-proc-run');
+  const status=document.getElementById('proc-ia-status');
+  btn.disabled=true; btn.textContent='⏳';
+  status.style.display='block'; status.textContent='Analisando o processo com IA...';
+  document.getElementById('proc-ia-sugestoes').innerHTML='';
+  const p=processoAtivo;
+  const etapasResumidas=p.etapas.map((e,i)=>`Etapa ${i+1} — ${e.titulo}: ${e.instrucao||''}`).join('\n');
+  const prompt=`Você é um assistente de produtividade. Analise o processo abaixo e sugira melhorias para cada etapa seguindo a instrução do usuário.
+
+Processo: "${p.nome}"
+${p.descricao?`Descrição: ${p.descricao}`:''}
+
+Etapas:
+${etapasResumidas}
+
+Instrução do usuário: "${instrucao}"
+
+Responda APENAS com JSON válido neste formato, sem explicações:
+{
+  "sugestoes": [
+    {
+      "etapa": 0,
+      "instrucao": "nova instrução para esta etapa",
+      "acao": {"titulo":"título","texto":"texto"} ou null,
+      "lembrete": "novo lembrete" ou null,
+      "justificativa": "uma frase curta explicando a mudança"
+    }
+  ]
+}
+Inclua uma sugestão por etapa. Se uma etapa não precisar de mudança, mantenha os valores originais.`;
+  try{
+    const resp=await chamarGroq(prompt);
+    const data=JSON.parse(resp.replace(/\`\`\`json|\`\`\`/g,'').trim());
+    status.style.display='none';
+    renderSugestoes(data.sugestoes||[]);
+  }catch(err){status.textContent='❌ Erro: '+err.message;}
+  finally{btn.disabled=false;btn.textContent='✨ Analisar';}
+}
+
+function renderSugestoes(sugestoes){
+  const cont=document.getElementById('proc-ia-sugestoes');
+  if(!sugestoes.length){cont.innerHTML='<div class="proc-ia-status">Nenhuma sugestão gerada.</div>';return;}
+  cont.innerHTML=sugestoes.map((s,si)=>{
+    const e=processoAtivo.etapas[s.etapa];
+    if(!e) return '';
+    const texto=[s.instrucao||'',s.justificativa?`\n💬 ${s.justificativa}`:''].join('').trim();
+    return `<div class="proc-ia-sug" id="sug-${si}">
+      <div class="proc-ia-sug-header">
+        <div class="proc-ia-sug-num">${s.etapa+1}</div>
+        <div class="proc-ia-sug-titulo">${e.titulo}</div>
+        <div class="proc-ia-sug-acoes">
+          <button class="btn-sug-ok" onclick="aplicarSugestao(${si})">✓ Aplicar</button>
+          <button class="btn-sug-skip" onclick="pularSugestao(${si})">Pular</button>
+        </div>
+      </div>
+      <div class="proc-ia-sug-body">${texto}</div>
+    </div>`;
+  }).join('');
+  // guarda sugestões no estado temporário
+  document._iaSugestoes=sugestoes;
+}
+
+function aplicarSugestao(si){
+  const sugestoes=document._iaSugestoes; if(!sugestoes) return;
+  const s=sugestoes[si];
+  const e=processoAtivo.etapas[s.etapa]; if(!e) return;
+  // salva no histórico
+  if(!e._hist) e._hist=[];
+  e._hist.unshift({ts:Date.now(),instrucao:e.instrucao,acao:e.acao?{...e.acao}:null,lembrete:e.lembrete});
+  if(e._hist.length>3) e._hist.pop();
+  // aplica
+  e.instrucao=s.instrucao||e.instrucao;
+  if(s.acao!==undefined) e.acao=s.acao;
+  if(s.lembrete!==undefined) e.lembrete=s.lembrete;
+  salvarClientes();
+  _reRenderCorpo(s.etapa);
+  // marca como aplicado visualmente
+  const el=document.getElementById('sug-'+si);
+  if(el){el.style.opacity='.45';el.querySelector('.proc-ia-sug-acoes').innerHTML='<span style="font-size:.7rem;color:var(--accent3)">✓ Aplicado</span>';}
+}
+
+function pularSugestao(si){
+  const el=document.getElementById('sug-'+si);
+  if(el){el.style.opacity='.35';el.querySelector('.proc-ia-sug-acoes').innerHTML='<span style="font-size:.7rem;color:var(--texto-s)">Pulado</span>';}
+}
+
+// ── Edição inline das fichas ──
+function salvarTituloEtapa(idx, novoTitulo){
+  if(!processoAtivo) return;
+  const t=novoTitulo.trim();
+  if(!t) return;
+  processoAtivo.etapas[idx].titulo=t;
+  salvarClientes();
+  // atualiza label na timeline
+  const n=idx+1, lb=t.split(' ').slice(0,2).join(' ');
+  const lbl=document.querySelector(`#tl-${n}`)?.closest('.tl-inner')?.querySelector('.tl-label');
+  if(lbl) lbl.textContent=lb;
+}
+function toggleUrlEdit(idx, btn){
+  const wrap=document.getElementById('url-wrap-'+idx);
+  const vis=wrap.style.display==='flex';
+  wrap.style.display=vis?'none':'flex';
+  if(!vis) document.getElementById('url-input-'+idx)?.focus();
+}
+function salvarTituloLink(idx){
+  if(!processoAtivo) return;
+  const titulo=document.getElementById('titulo-input-'+idx)?.value.trim();
+  if(!titulo) return;
+  processoAtivo.etapas[idx].labelCustom=titulo;
+  salvarClientes();
+  _atualizarBtnAbrir(idx);
+}
+function salvarUrlEtapa(idx){
+  if(!processoAtivo) return;
+  const url=document.getElementById('url-input-'+idx)?.value.trim()||'';
+  processoAtivo.etapas[idx].url=url;
+  salvarClientes();
+  _atualizarBtnAbrir(idx);
+  // re-renderiza botões do topo
+  const p=processoAtivo;
+  const fu=[...new Set((p.etapas||[]).filter(e=>e.ferramenta&&e.url).map(e=>e.ferramenta))];
+  document.getElementById('proc-ferr').innerHTML=fu.map(f=>{
+    const info=FMAP[f]||{cls:'gen',label:f};
+    const et=p.etapas.find(e=>e.ferramenta===f);
+    return `<button class="ferr-btn ${info.cls}" onclick="popup('${f}','${et.url}')"><span class="dot"></span>${info.label}</button>`;
+  }).join('');
+}
+function _atualizarBtnAbrir(idx){
+  const e=processoAtivo.etapas[idx];
+  const ferr=e.ferramenta?(FMAP[e.ferramenta]||{cls:'gen',label:e.ferramenta}):null;
+  const label=e.labelCustom||(ferr?ferr.label:e.ferramenta)||'';
+  const cls=ferr?ferr.cls:'gen';
+  const etEl=document.getElementById('et-'+(idx+1));
+  if(!etEl) return;
+  const corpo=etEl.querySelector('.etapa-corpo');
+  if(!corpo) return;
+  corpo.querySelector('.btn-abrir')?.remove();
+  if(e.url&&label){
+    const btn=document.createElement('button');
+    btn.className=`btn-abrir ${cls}`;
+    btn.onclick=()=>popup(e.ferramenta||'gen', e.url);
+    btn.textContent=`↗ Abrir ${label}`;
+    corpo.insertBefore(btn, corpo.firstChild);
+  }
+}
+
+// ── Popup persistente ──
+const _popups={};
+function popup(id,url){
+  const w=_popups[id]; if(w&&!w.closed){w.focus();return;}
+  const pw=500,ph=window.screen.availHeight,pl=window.screen.availWidth-pw;
+  _popups[id]=window.open(url,'pop_'+id,`width=${pw},height=${ph},left=${pl},top=0,resizable=yes,scrollbars=yes`);
+}
+
+// ═══════════════════════════════
+//  GROQ
+// ═══════════════════════════════
+function toggleGroq(e){
+  e.stopPropagation();
+  document.getElementById('groq-dropdown').classList.toggle('visivel');
+}
+document.addEventListener('click',()=>document.getElementById('groq-dropdown')?.classList.remove('visivel'));
+
+function salvarGroqKey(){
+  const k=document.getElementById('groq-key').value.trim();
+  try{localStorage.setItem('fnw-groq',k);}catch(e){}
+  const btn=document.getElementById('btn-groq');
+  const st=document.getElementById('groq-status');
+  st.textContent=k?'✓ Salva':'—'; st.className='groq-st '+(k?'ok':'');
+  if(btn) btn.classList.toggle('ok',!!k);
+}
+function getGroqKey(){try{return localStorage.getItem('fnw-groq')||'';}catch(e){return '';}}
+function carregarGroqKey(){
+  const k=getGroqKey(); if(!k) return;
+  const el=document.getElementById('groq-key'); if(el) el.value=k;
+  const st=document.getElementById('groq-status'); if(st){st.textContent='✓ Salva';st.className='groq-st ok';}
+  const btn=document.getElementById('btn-groq'); if(btn) btn.classList.add('ok');
+}
+async function chamarGroq(prompt){
+  const k=getGroqKey(); if(!k) throw new Error('Groq Key não configurada.');
+  const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{
+    method:'POST',
+    headers:{'Authorization':`Bearer ${k}`,'Content-Type':'application/json'},
+    body:JSON.stringify({model:'llama-3.3-70b-versatile',temperature:.4,max_tokens:2000,messages:[{role:'user',content:prompt}]})
+  });
+  if(!r.ok) throw new Error(`Groq ${r.status}`);
+  const d=await r.json(); return d.choices[0].message.content;
+}
+
+// ═══════════════════════════════
+//  DADOS
+// ═══════════════════════════════
+function salvarBiblioteca(){
+  try{localStorage.setItem('fnw-biblioteca',JSON.stringify(biblioteca));}catch(e){}
+}
+function carregarBiblioteca(){
+  try{
+    const d=localStorage.getItem('fnw-biblioteca');
+    biblioteca=d?JSON.parse(d):[];
+    // migração: inclui o processo base do scripting se a biblioteca estiver vazia
+    if(!biblioteca.length){
+      biblioteca=[JSON.parse(JSON.stringify(BIBLIOTECA[0]))];
+      salvarBiblioteca();
+    }
+  }catch(e){biblioteca=[];}
+}
+function excluirBib(id){
+  if(!confirm('Remover da biblioteca? Os clientes que já têm este processo não são afetados.')) return;
+  biblioteca=biblioteca.filter(b=>b.id!==id);
+  salvarBiblioteca(); renderAdmin();
+}
+function salvarClientes(){
+  try{localStorage.setItem('fnw-clientes',JSON.stringify(clientes));}catch(e){}
+  atualizarSaveInfo();
+}
+function carregarClientes(){
+  try{
+    const d=localStorage.getItem('fnw-clientes');
+    clientes=d?JSON.parse(d):[];
+    // remove duplicatas pelo nome (mantém o primeiro)
+    const vistos={};
+    clientes=clientes.filter(c=>{
+      const key=c.nome.toLowerCase().trim();
+      if(vistos[key]) return false;
+      vistos[key]=true; return true;
+    });
+    salvarClientes();
+  }catch(e){clientes=[];}
+}
+function exportarHTML(){
+  const data={clientes,biblioteca,_ts:Date.now().toString()};
+  const json=JSON.stringify(data).replace(/<\/script>/g,'<\\/script>');
+  let h=document.documentElement.outerHTML;
+  // substitui tag seqlist-data vazia ou com conteudo
+  h=h.replace(/<script id="seqlist-data" type="application\/json">[\s\S]*?<\/script>/,
+    '<script id="seqlist-data" type="application/json">'+json+'<\/script>');
+  if(!h.startsWith('<!')) h='<!DOCTYPE html>\n'+h;
+  const agora=new Date();
+  const ts=agora.toISOString().slice(0,10);
+  const hora=agora.toTimeString().slice(0,5).replace(':','h');
+  const blob=new Blob([h],{type:'text/html;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='seqlist-admin-'+ts+'-'+hora+'.html';
+  a.click();
+}
+
+function exportar(){
+  const isAdmin=modoAdmin||modoAdminGerenciaCliente;
+  const data=isAdmin?{clientes,biblioteca}:{cliente:clienteAtivo};
+  const autor=isAdmin?'admin':(clienteAtivo?.nome||'usuario').replace(/\s+/g,'-').toLowerCase();
+  const agora=new Date();
+  const ts=agora.toISOString().slice(0,10);
+  const hora=agora.toTimeString().slice(0,5).replace(':','h');
+  const nome=`seqlist-${autor}-${ts}-${hora}.json`;
+  const b=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=nome;a.click();
+}
+function importar(event){
+  const f=event.target.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=e=>{
+    try{
+      const d=JSON.parse(e.target.result);
+      if(d.clientes){
+        clientes=d.clientes; salvarClientes();
+        if(d.biblioteca){biblioteca=d.biblioteca;salvarBiblioteca();}
+        if(modoAdmin||modoAdminGerenciaCliente) renderAdmin();
+        alert(`✓ ${clientes.length} cliente(s) e ${biblioteca.length} processo(s) na biblioteca importados.`);
+      } else if(d.cliente&&clienteAtivo){
+        const idx=clientes.findIndex(c=>c.id===clienteAtivo.id);
+        if(idx>=0){clientes[idx]=d.cliente;clienteAtivo=d.cliente;processos=clienteAtivo.processos;}
+        salvarClientes();renderHub();alert('✓ Processos importados.');
+      } else {alert('Arquivo inválido.');}
+    }catch(err){alert('Erro: '+err.message);}
+  };
+  r.readAsText(f); event.target.value='';
+}
+function atualizarSaveInfo(){
+  const el=document.getElementById('save-info'); if(!el) return;
+  const isAdmin=modoAdmin||modoAdminGerenciaCliente;
+  el.textContent=isAdmin
+    ?`${clientes.length} cliente(s) · ${biblioteca.length} processo(s) na biblioteca`
+    :clienteAtivo?`${processos.length} processo(s) de ${clienteAtivo.nome}`:'—';
+}
+
+// ═══════════════════════════════
+//  INIT
+// ═══════════════════════════════
+
+// 1. Carrega dados embutidos no HTML (sempre, se existirem)
+(function carregarDadosEmbutidos(){
+  try{
+    const el=document.getElementById('seqlist-data');
+    if(!el||!el.textContent.trim()) return;
+    const data=JSON.parse(el.textContent);
+    if(data.clientes) localStorage.setItem('fnw-clientes',JSON.stringify(data.clientes));
+    if(data.biblioteca) localStorage.setItem('fnw-biblioteca',JSON.stringify(data.biblioteca));
+    console.log('[SEQLIST] Dados embutidos carregados:',data.clientes?.length,'cliente(s)');
+  }catch(e){console.warn('[SEQLIST] Erro ao carregar dados embutidos:',e);}
+})();
+
+// 2. Limpeza de duplicatas
+(function limparDuplicatasStorage(){
+  try{
+    const d=localStorage.getItem('fnw-clientes');
+    if(!d) return;
+    const lista=JSON.parse(d);
+    const vistos={};
+    const limpa=lista.filter(c=>{
+      const key=c.nome.toLowerCase().trim();
+      if(vistos[key]) return false;
+      vistos[key]=true; return true;
+    });
+    if(limpa.length!==lista.length) localStorage.setItem('fnw-clientes',JSON.stringify(limpa));
+  }catch(e){}
+})();
+
+carregarPrefs();
+carregarBiblioteca();
+document.getElementById('tela-acesso').style.display='flex';
+</script>
+</body>
+</html>
